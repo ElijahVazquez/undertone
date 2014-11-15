@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>UNDERTONE</title>
+	<meta name="description" content="Elijah Vazquez's Portfolio Site">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(function() {
+		  $('a[href*=#]:not([href=#])').click(function() {
+		    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		      var target = $(this.hash);
+		      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		      if (target.length) {
+		        $('html,body').animate({
+		          scrollTop: target.offset().top
+		        }, 1000);
+		        return false;
+		      }
+		    }
+		  });
+		});
+		});
+	</script>
+</head>
+<body>
+<nav>
+	<div id="hideMe">
+		<a href="#top"><img id="" src="img/undertoneLogo.png" alt=""></a>
+		<a href="#top"><button>Upload New Image</button></a>
+	<div>
+</nav>
+<header>
+	<img id="top" src="img/logo.png" alt="Undertone Logo">
+	<div>
+		<h1>Ready for a feel trip?</h1>
+		<p>Undertone finds the mood of your image and creates a playlist based on the dominant colors. Less time thinking, more time feeling.</p>
+		<a href="#mainBody"><button>Bring on the feels</button></a>
+	</div>
+</header>
+
+<section id="lifeForce">
+	<section id="mainBody">
+		<div id="dropbox"><p class="message">Drag Image Here</p></div>
+	</section>
+</section>
+	
+	<section id='colorPalette'>
+		<!--<h2>Color Palette</h2>
+		<h1>Agressive</h1>
+		<div id='colorsInHere'>
+			<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>
+		</div>-->
+	</section>
+	<section id='stuffhere'>
+		<!--<p>    THIS stuff was for styling purposes so I didnt have to keep draging and 					reloading
+			playlist based on <br>
+			<h1>agressive</h1>
+			Blowin' In The Wind by Bob Dylan <br><hr>
+			Give Me One Reason by Tracy Chapman <br><hr>
+			Heart Of Gold by Neil Young <br><hr>
+			Kashmir by Led Zeppelin <br><hr>
+			Mary Jane's Last Dance by Tom Petty &amp; The Heartbreakers
+		</p>-->
+	</section>
+
+<footer>
+	<p>Created by ByeFelicia</p>
+</footer>
+
+  <script src="js/color-thief.js"></script>
+  <script src="js/jquery.filedrop.js"></script>
+  <!--<script src="js/say-cheese.js"></script>-->
+  <script src="js/dropScripts.js"></script>
+</body>
+</html>
