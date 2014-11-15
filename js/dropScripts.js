@@ -1,4 +1,5 @@
 $(function(){
+	var counter=0;
 	$('#stuffhere').hide();
 	$("#colorPalette").hide();
 	$("#hideMe").hide();
@@ -6,8 +7,6 @@ $(function(){
 		message = $('.message', dropbox),
 		mainBody = $('#lifeForce'),
 		sourceImage;
-	
-
 
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
@@ -68,10 +67,9 @@ $(function(){
 	var template = '<div class="preview">'+
 						'<h2>Your Image</h2>'+
 						'<span class="imageHolder">'+
-							'<img />'+
+							'<img class="uploadedImg" />'+
 						'</span>'+
 					'</div>'; 
-	
 	
 	function createImage(file){
 
@@ -85,10 +83,15 @@ $(function(){
 		
 		reader.onload = function(e){
 			// e.target.result holds the DataURL which can be used as a source of the image:
-
+		if(counter == 1){
 			image.attr('src',e.target.result);
-		
-		
+			alert("init image set");
+			counter++;
+		}
+		else if(counter > 1){
+			alert("new image replace old");
+			$(".uploadedImg").attr('src',e.target.result);
+		}
 		var myImage = new Image();
 		myImage.onload = function() {
 		  var colorThief = new ColorThief();
@@ -104,7 +107,13 @@ $(function(){
 		reader.readAsDataURL(file);
 		
 		message.hide();
-		preview.appendTo(mainBody);
+
+		if(counter == 0){
+			preview.appendTo(mainBody);
+			counter++;
+			alert("counter increase");
+		}
+		
 		
 		// Associating a preview container
 		// with the file, using jQuery's $.data():
@@ -125,7 +134,6 @@ $(function(){
         $("#hideMe").hide();
     }
 });
-
 	//$(document).ready(function(){
 	    //$('#capture').hide();
 function colorToMood(){
