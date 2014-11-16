@@ -105,8 +105,7 @@ $(function(){
 		// Reading the file as a DataURL. When finished,
 		// this will trigger the onload function above:
 		reader.readAsDataURL(file);
-		
-		message.hide();
+		// message.hide(); THIS hides the text inside the drop area.
 
 		if(counter == 0){
 			preview.appendTo(mainBody);
