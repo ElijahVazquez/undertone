@@ -131,29 +131,55 @@ header button:hover{
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 /*------------------------- main -------------------------*/
+input.hidden {
+    position: absolute;
+    left: -9999px;
+}
+#bgColor{
+	background-color: rgba(160,40,80,1);
+	width: 100%;
+	padding: 5rem 0;
+}
 #mainBody{
 	width: 95%;
-	max-width: 40rem;
+	max-width: 60rem;
 	background: rgba(256,256,256,1);
 	margin: 0 auto;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
 	border-radius: 10px;
-	padding: 5rem 10rem;
+	padding: 2.5rem 0rem;
 }
-#mainBody div{
-	background: rgba(249,247,246,1);
+#mainBody p{
+	text-align: center;
+	color: rgba(125,125,125,1);
+	font-weight: book;
+	text-transform: uppercase;
+}
+.flex{
+	display: flex;
+}
+#fancyHR{
+	background: url('../img/fancyHr.jpg') no-repeat;
+	display: block;
+	width: 95%;
+	max-width: 831px;
+	height: 55px;
 	margin: 0 auto;
-	width: 40rem;
+}
+.imgOption{
+	background: rgba(249,247,246,1);
+	width: 40.5%;
+	margin-left: 6.15%;
 	height: 15rem;
 	border: 1px solid rgba(227,225,222,1);
 	text-align: center;
+	cursor: pointer;
 }
 #mainBody div p{
 	margin: 7rem 0;
 	color: rgba(125,125,125,1);
 	font-weight: book;
 	font-style: italic;
+	text-transform: none;
 }
 #mainBody img{
 	max-width: 40rem;
@@ -163,15 +189,16 @@ header button:hover{
 #lifeForce{
 	max-width: 60rem;
 	margin: 0 auto;
+
 	background-color: rgba(256,256,256,1);
 	clear: both;
 }
 .preview{
 	background: rgba(256,256,256,1);
-	padding: 1rem;
-	width: 45%;
+	padding: 2rem;
+	width: 42%;
 	height: 15rem;
-	margin: 0rem 0rem 2rem 0rem;
+	margin: 5rem 0rem 2rem 0rem;
 	border-radius: 10px;
 	float: left;
 }
@@ -193,10 +220,10 @@ header button:hover{
 }
 #colorPalette{
 	background: rgba(256,256,256,1);
-	padding: 1rem;
-	width: 45%;
+	padding: 2rem;
+	width: 42%;
 	height: 15rem;
-	/*margin: 2rem 10rem 2rem 2rem;*/
+	margin: 5rem 0rem 0rem 0rem;
 	border-radius: 10px;
 	float: right;
 }

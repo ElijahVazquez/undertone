@@ -8,6 +8,11 @@ $(function(){
 		mainBody = $('#lifeForce'),
 		sourceImage;
 
+	$('#upload-image').on('click', function() {
+	    $('#click-image-upload').click();
+	});
+
+
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
 		paramname:'pic',
