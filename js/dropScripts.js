@@ -10,6 +10,7 @@ $(function(){
 
 	$('#upload-image').on('click', function() {
 	    $('#click-image-upload').click();
+	
 	});
 
 
