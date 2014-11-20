@@ -24,7 +24,6 @@
  *
  */
 (function($){
-
 	jQuery.event.props.push("dataTransfer");
 	var opts = {},
 		default_opts = {

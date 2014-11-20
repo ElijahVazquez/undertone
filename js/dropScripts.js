@@ -10,8 +10,21 @@ $(function(){
 
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
-
 	});
+	
+	$('#click-image-upload').change(function(){
+	    alert("in");
+	    var theImg;
+	    //console.log(this.files[0]);
+	    if (this.files && this.files[0]) {
+	        var reader = new FileReader();
+	        
+	        reader.onload = function (e) {
+	            theImg = e.target.result;
+	            dropbox.append("<img src="+theImg+" />");
+            }        
+            reader.readAsDataURL(this.files[0]);
+	    }
 
 	var isDragging = false;
 	$(document)
@@ -31,6 +44,64 @@ $(function(){
 		    if(wasDragging) {  //drag is over
 		    	$('.imgOption').show();
 		    }
+	});
+
+	    dropbox.filedrop({
+	    	// The name of the $_FILES entry:
+	    	paramname:'pic',
+	    	
+	    	maxfiles: 5,
+	    	maxfilesize: 3,
+	    	url: 'php/post_file.php',
+	    	
+	    	uploadFinished:function(i,file,response){
+	    		$.data(file).addClass('done');
+	    		// response is the JSON object that post_file.php returns
+	    	},
+	    	
+	    	error: function(err, file) {
+	    		switch(err) {
+	    			case 'BrowserNotSupported':
+	    			showMessage('Your browser does not support HTML5 file uploads!');
+	    			break;
+	    			case 'TooManyFiles':
+	    			alert('Too many files! Please select 5 at most!');
+	    			break;
+	    			case 'FileTooLarge':
+	    			alert(file.name+' is too large! Please upload files smaller than 3mb.');
+	    			break;
+	    			default:
+	    			break;
+	    		}
+	    	},
+	    	
+	    	// Called before each upload is started
+	    	beforeEach: function(file){
+	    		if(!file.type.match(/^image\//)){
+	    			alert('Only images are allowed!');
+	    			
+	    			// Returning false will cause the
+	    			// file to be rejected
+	    			return false;
+	    		}
+	    	},
+	    	
+	    	uploadStarted:function(i, file, len){
+	    		console.log('upload started');
+	    		createImage(file);
+	    		//$("header").hide();
+	    		//$("#mainBody").hide();
+	    		$("#hideMe").show();
+	    		$('#stuffhere').show();
+	    		$('#colorPalette').show();
+
+	    	},
+	    	
+	    	//progressUpdated: function(i, file, progress) {
+	    	//	$.data(file).find('.progress').width(progress);
+	    	//}
+
+	    });
 	});
 
 	dropbox.filedrop({
