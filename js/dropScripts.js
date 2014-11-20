@@ -8,6 +8,26 @@ $(function(){
 	mainBody = $('#lifeForce'),
 	sourceImage;
 
+	var dragTimer;
+	$(document).on('dragover', function(e) {
+	    var dt = e.originalEvent.dataTransfer;
+	    console.log('1');
+	    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
+	        $('.imgOption').fadeOut(200, function(){
+	        	$('.imgOptionWide').fadeIn(200);
+	        });
+	        window.clearTimeout(dragTimer);
+	    }
+	});
+	$(document).on('dragleave', function(e) {
+		console.log('2');
+	    dragTimer = window.setTimeout(function() {
+	        $('.imgOptionWide').fadeOut(200, function(){
+	        	$('.imgOption').fadeIn(200);
+	        });
+	    }, 100);
+	});
+
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
@@ -25,26 +45,6 @@ $(function(){
             }        
             reader.readAsDataURL(this.files[0]);
 	    }
-
-	var isDragging = false;
-	$(document)
-		.mousedown(function() {
-		    $(window).mousemove(function() {
-		        isDragging = true;
-		        $(window).unbind("mousemove");
-		        $('.imgOption').hide();
-		    });
-		})
-		.mouseup(function() {
-		    var wasDragging = isDragging;
-		    isDragging = false;
-		    $(window).unbind("mousemove");
-		    if (!wasDragging) { //was clicking
-		    }
-		    if(wasDragging) {  //drag is over
-		    	$('.imgOption').show();
-		    }
-	});
 
 	    dropbox.filedrop({
 	    	// The name of the $_FILES entry:

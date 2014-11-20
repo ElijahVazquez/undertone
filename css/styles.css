@@ -195,9 +195,26 @@ input.hidden {
 	text-align: center;
 	cursor: pointer;
 }
+.imgOptionWide{
+	display:none;
+	background: rgba(249,247,246,1);
+	width: 86.7%;
+	margin-left: 6.15%;
+	height: 232px;
+	border:5px dashed rgba(227,225,222,1);
+	text-align: center;
+	cursor: pointer;
+}
 #mainBody div p{
 	margin: 112px 0;
 	margin: 7rem 0;
+	color: rgba(125,125,125,1);
+	font-weight: book;
+	font-style: italic;
+	text-transform: none;
+}
+#mainBody .imgOptionWide .message{
+	margin: 108px 0;
 	color: rgba(125,125,125,1);
 	font-weight: book;
 	font-style: italic;
