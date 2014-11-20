@@ -126,9 +126,14 @@ $(function(){
 		},
 		
 		uploadFinished:function(i,file,response){
-			$('.loader').fadeOut();
+			$('.loader').fadeOut(function(){
+				$('html,body').animate({
+				    scrollTop: $('#lifeForce').offset().top
+				}, 1000);
+				return false;
+			});
 			$.data(file).addClass('done');
-			// response is the JSON object that post_file.php returns
+			// response is the JSON omject that post_file.php returns
 		},
 		
 		error: function(err, file) {
@@ -165,7 +170,6 @@ $(function(){
 			$("#hideMe").show();
 			$('#stuffhere').show();
 			$('#colorPalette').show();
-
 		},
 		
 		//progressUpdated: function(i, file, progress) {
