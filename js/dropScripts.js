@@ -259,222 +259,222 @@ function createImage(file){
 	//black white grey red green blue yellow pink purple orange 
 
 	names: [
-		["000000","fear"],
-		["000033","fear"],
-		["000066","sadness"],
-		["000099","sadness"],
-		["0000CC","sadness"],
-		["0000FF","joy"],
-		["003300","fear"],
-		["003333","fear"],
-		["003366","sadness"],
-		["003399","sadness"],
-		["0033CC","joy"],
-		["0033FF","joy"],
-		["006600","anger"],
-		["006633","anger"],
-		["006666","sadness"],
-		["006699","sadness"],
-		["0066CC","joy"],
-		["0066FF","joy"],
-		["009900","joy"],
-		["009933","joy"],
-		["009966","joy"],
-		["009999","joy"],
-		["0099CC","joy"],
-		["0099FF","joy"],
-		["00CC00","joy"],
-		["00CC33","joy"],
-		["00CC66","joy"],
-		["00CC99","joy"],
-		["00CCCC","joy"],
-		["00CCFF","joy"],
-		["00FF00","joy"],
-		["00FF33","joy"],
-		["00FF66","joy"],
-		["00FF99","joy"],
-		["00FFCC","joy"],
-		["00FFFF","joy"],
-		["330000","anger"],
-		["330033","sad"],
-		["330066","sad"],
-		["330099","sad"],
-		["3300CC","sad"],
-		["3300FF","joy"],
-		["333300","anger"],
-		["333333","sad"],
-		["333366","sad"],
-		["333399","sad"],
-		["3333CC","sad"],
-		["3333FF","joy"],
-		["336600","anger"],
-		["336633","anger"],
-		["336666","sad"],
-		["336699","sad"],
-		["3366CC","sad"],
-		["3366FF","sad"],
-		["339900","anger"],
-		["339933","anger"],
-		["339966","sad"],
-		["339999","sad"],
-		["3399CC","sad"],
-		["3399FF","sad"],
-		["33CC00","joy"],
-		["33CC33","joy"],
-		["33CC66","joy"],
-		["33CC99","joy"],
-		["33CCCC","joy"],
-		["33CCFF","joy"],
-		["33FF00","joy"],
-		["33FF33","joy"],
-		["33FF66","joy"],
-		["33FF99","joy"],
-		["33FFCC","joy"],
-		["33FFFF","joy"],
-		["660000","anger"],
-		["660033","anger"],
-		["660066","anger"],
-		["660099","anger"],
-		["6600CC","sad"],
-		["6600FF","sad"],
-		["663300","sad"],
-		["663333","sad"],
-		["663366","sad"],
-		["663399","sad"],
-		["6633CC","love"],
-		["6633FF","sad"],
-		["666600","fear"],
-		["666633","fear"],
-		["666666","sad"],
-		["666699","sad"],
-		["6666CC","sad"],
-		["6666FF","sad"],
-		["669900","anger"],
-		["669933","anger"],
-		["669966","sad"],
-		["669999","sad"],
-		["6699CC","sad"],
-		["6699FF","joy"],
-		["66CC00","joy"],
-		["66CC33","joy"],
-		["66CC66","joy"],
-		["66CC99","joy"],
-		["66CCCC","joy"],
-		["66CCFF","joy"],
-		["66FF00","joy"],
-		["66FF33","joy"],
-		["66FF66","joy"],
-		["66FF99","joy"],
-		["66FFCC","joy"],
-		["66FFFF","joy"],
-		["990000","anger"],
-		["990033","anger"],
-		["990066","love"],
-		["990099","love"],
-		["9900CC","joy"],
-		["9900FF","joy"],
-		["993300","anger"],
-		["993333","anger"],
-		["993366","love"],
-		["993399","love"],
-		["9933CC","joy"],
-		["9933FF","joy"],
-		["996600","fear"],
-		["996633","fear"],
-		["996666","sad"],
-		["996699","sad"],
-		["9966CC","joy"],
-		["9966FF","joy"],
-		["999900","sad"],
-		["999933","sad"],
-		["999966","fear"],
-		["999999","sad"],
-		["9999CC","sad"],
-		["9999FF","sad"],
-		["99CC00","anger"],
-		["99CC33","anger"],
-		["99CC66","sad"],
-		["99CC99","sad"],
-		["99CCCC","sad"],
-		["99CCFF","joy"],
-		["99FF00","joy"],
-		["99FF33","joy"],
-		["99FF66","joy"],
-		["99FF99","joy"],
-		["99FFCC","joy"],
-		["99FFFF","joy"],
-		["CC0000","anger"],
-		["CC0033","anger"],
-		["CC0066","love"],
-		["CC0099","love"],
-		["CC00CC","love"],
-		["CC00FF","surprise"],
-		["CC3300","anger"],
-		["CC3333","anger"],
-		["CC3366","love"],
-		["CC3399","love"],
-		["CC33CC","love"],
-		["CC33FF","surprise"],
-		["CC6600","fear"],
-		["CC6633","fear"],
-		["CC6666","sad"],
-		["CC6699","love"],
-		["CC66CC","love"],
-		["CC66FF","love"],
-		["CC9900","sad"],
-		["CC9933","sad"],
-		["CC9966","sad"],
-		["CC9999","sad"],
-		["CC99CC","love"],
-		["CC99FF","love"],
-		["CCCC00","sad"],
-		["CCCC33","sad"],
-		["CCCC66","sad"],
-		["CCCC99","sad"],
-		["CCCCCC","sad"],
-		["CCCCFF","sad"],
-		["CCFF00","surprise"],
-		["CCFF33","surprise"],
-		["CCFF66","joy"],
-		["CCFF99","joy"],
-		["CCFFCC","joy"],
-		["CCFFFF","joy"],
-		["FF0000","surprise"],
-		["FF0033","surprise"],
-		["FF0066","love"],
-		["FF0099","love"],
-		["FF00CC","love"],
-		["FF00FF","love"],
-		["FF3300","love"],
-		["FF3333","love"],
-		["FF3366","love"],
-		["FF3399","love"],
-		["FF33CC","love"],
-		["FF33FF","love"],
-		["FF6600","joy"],
-		["FF6633","joy"],
-		["FF6666","joy"],
-		["FF6699","love"],
-		["FF66CC","love"],
-		["FF66FF","love"],
-		["FF9900","love"],
-		["FF9933","joy"],
-		["FF9966","joy"],
-		["FF9999","love"],
-		["FF99CC","love"],
-		["FF99FF","love"],
-		["FFCC00","joy"],
-		["FFCC33","joy"],
-		["FFCC66","joy"],
-		["FFCC99","joy"],
-		["FFCCCC","love"],
-		["FFCCFF","love"],
-		["FFFF00","surprise"],
-		["FFFF33","joy"],
-		["FFFF66","joy"],
-		["FFFF99","joy"],
-		["FFFFCC","joy"],
-		["FFFFFF","joy"]
+	["000000","fear"],
+	["000033","fear"],
+	["000066","sadness"],
+	["000099","sadness"],
+	["0000CC","sadness"],
+	["0000FF","joy"],
+	["003300","fear"],
+	["003333","fear"],
+	["003366","sadness"],
+	["003399","sadness"],
+	["0033CC","joy"],
+	["0033FF","joy"],
+	["006600","anger"],
+	["006633","anger"],
+	["006666","sadness"],
+	["006699","sadness"],
+	["0066CC","joy"],
+	["0066FF","joy"],
+	["009900","joy"],
+	["009933","joy"],
+	["009966","joy"],
+	["009999","joy"],
+	["0099CC","joy"],
+	["0099FF","joy"],
+	["00CC00","joy"],
+	["00CC33","joy"],
+	["00CC66","joy"],
+	["00CC99","joy"],
+	["00CCCC","joy"],
+	["00CCFF","joy"],
+	["00FF00","joy"],
+	["00FF33","joy"],
+	["00FF66","joy"],
+	["00FF99","joy"],
+	["00FFCC","joy"],
+	["00FFFF","joy"],
+	["330000","anger"],
+	["330033","sad"],
+	["330066","sad"],
+	["330099","sad"],
+	["3300CC","sad"],
+	["3300FF","joy"],
+	["333300","anger"],
+	["333333","sad"],
+	["333366","sad"],
+	["333399","sad"],
+	["3333CC","sad"],
+	["3333FF","joy"],
+	["336600","anger"],
+	["336633","anger"],
+	["336666","sad"],
+	["336699","sad"],
+	["3366CC","sad"],
+	["3366FF","sad"],
+	["339900","anger"],
+	["339933","anger"],
+	["339966","sad"],
+	["339999","sad"],
+	["3399CC","sad"],
+	["3399FF","sad"],
+	["33CC00","joy"],
+	["33CC33","joy"],
+	["33CC66","joy"],
+	["33CC99","joy"],
+	["33CCCC","joy"],
+	["33CCFF","joy"],
+	["33FF00","joy"],
+	["33FF33","joy"],
+	["33FF66","joy"],
+	["33FF99","joy"],
+	["33FFCC","joy"],
+	["33FFFF","joy"],
+	["660000","anger"],
+	["660033","anger"],
+	["660066","anger"],
+	["660099","anger"],
+	["6600CC","sad"],
+	["6600FF","sad"],
+	["663300","sad"],
+	["663333","sad"],
+	["663366","sad"],
+	["663399","sad"],
+	["6633CC","love"],
+	["6633FF","sad"],
+	["666600","fear"],
+	["666633","fear"],
+	["666666","sad"],
+	["666699","sad"],
+	["6666CC","sad"],
+	["6666FF","sad"],
+	["669900","anger"],
+	["669933","anger"],
+	["669966","sad"],
+	["669999","sad"],
+	["6699CC","sad"],
+	["6699FF","joy"],
+	["66CC00","joy"],
+	["66CC33","joy"],
+	["66CC66","joy"],
+	["66CC99","joy"],
+	["66CCCC","joy"],
+	["66CCFF","joy"],
+	["66FF00","joy"],
+	["66FF33","joy"],
+	["66FF66","joy"],
+	["66FF99","joy"],
+	["66FFCC","joy"],
+	["66FFFF","joy"],
+	["990000","anger"],
+	["990033","anger"],
+	["990066","love"],
+	["990099","love"],
+	["9900CC","joy"],
+	["9900FF","joy"],
+	["993300","anger"],
+	["993333","anger"],
+	["993366","love"],
+	["993399","love"],
+	["9933CC","joy"],
+	["9933FF","joy"],
+	["996600","fear"],
+	["996633","fear"],
+	["996666","sad"],
+	["996699","sad"],
+	["9966CC","joy"],
+	["9966FF","joy"],
+	["999900","sad"],
+	["999933","sad"],
+	["999966","fear"],
+	["999999","sad"],
+	["9999CC","sad"],
+	["9999FF","sad"],
+	["99CC00","anger"],
+	["99CC33","anger"],
+	["99CC66","sad"],
+	["99CC99","sad"],
+	["99CCCC","sad"],
+	["99CCFF","joy"],
+	["99FF00","joy"],
+	["99FF33","joy"],
+	["99FF66","joy"],
+	["99FF99","joy"],
+	["99FFCC","joy"],
+	["99FFFF","joy"],
+	["CC0000","anger"],
+	["CC0033","anger"],
+	["CC0066","love"],
+	["CC0099","love"],
+	["CC00CC","love"],
+	["CC00FF","surprise"],
+	["CC3300","anger"],
+	["CC3333","anger"],
+	["CC3366","love"],
+	["CC3399","love"],
+	["CC33CC","love"],
+	["CC33FF","surprise"],
+	["CC6600","fear"],
+	["CC6633","fear"],
+	["CC6666","sad"],
+	["CC6699","love"],
+	["CC66CC","love"],
+	["CC66FF","love"],
+	["CC9900","sad"],
+	["CC9933","sad"],
+	["CC9966","sad"],
+	["CC9999","sad"],
+	["CC99CC","love"],
+	["CC99FF","love"],
+	["CCCC00","sad"],
+	["CCCC33","sad"],
+	["CCCC66","sad"],
+	["CCCC99","sad"],
+	["CCCCCC","sad"],
+	["CCCCFF","sad"],
+	["CCFF00","surprise"],
+	["CCFF33","surprise"],
+	["CCFF66","joy"],
+	["CCFF99","joy"],
+	["CCFFCC","joy"],
+	["CCFFFF","joy"],
+	["FF0000","surprise"],
+	["FF0033","surprise"],
+	["FF0066","love"],
+	["FF0099","love"],
+	["FF00CC","love"],
+	["FF00FF","love"],
+	["FF3300","love"],
+	["FF3333","love"],
+	["FF3366","love"],
+	["FF3399","love"],
+	["FF33CC","love"],
+	["FF33FF","love"],
+	["FF6600","joy"],
+	["FF6633","joy"],
+	["FF6666","joy"],
+	["FF6699","love"],
+	["FF66CC","love"],
+	["FF66FF","love"],
+	["FF9900","love"],
+	["FF9933","joy"],
+	["FF9966","joy"],
+	["FF9999","love"],
+	["FF99CC","love"],
+	["FF99FF","love"],
+	["FFCC00","joy"],
+	["FFCC33","joy"],
+	["FFCC66","joy"],
+	["FFCC99","joy"],
+	["FFCCCC","love"],
+	["FFCCFF","love"],
+	["FFFF00","surprise"],
+	["FFFF33","joy"],
+	["FFFF66","joy"],
+	["FFFF99","joy"],
+	["FFFFCC","joy"],
+	["FFFFFF","joy"]
 	]
 }
 
@@ -489,30 +489,21 @@ ntc.init();
 		if (soiledIt < 26){
 			soiledIt = 00;
 		}
-
 		else if (soiledIt > 25 && soiledIt < 77){
 			soiledIt = 51;
 		}
-
-
 		else if (soiledIt > 76 && soiledIt < 128){
 			soiledIt = 102;
 		}
-
-
 		else if (soiledIt > 127 && soiledIt < 179){
 			soiledIt = 153;
 		}
-
-
 		else if (soiledIt > 178 && soiledIt < 230){
 			soiledIt = 204;
 		}
-
 		else if (soiledIt > 229){
 			soiledIt = 255;
 		}
-
 		return soiledIt;
 	}
 
@@ -550,31 +541,91 @@ ntc.init();
 	        n_name       = n_match[1]; // This is the text string for the name of the match
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
-	        var n_match2  = ntc.name(hexcolor2);
-	        n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
-	        n_name2       = n_match2[1]; // This is the text string for the name of the match
-	        n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
+	    var n_match2  = ntc.name(hexcolor2);
+		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
+		    n_name2       = n_match2[1]; // This is the text string for the name of the match
+		    n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
 
-	        var n_match3  = ntc.name(hexcolor);
-	        n_rgb3        = n_match3[0]; // This is the RGB value of the closest matching color
-	        n_name3       = n_match3[1]; // This is the text string for the name of the match
-	        n_exactmatch3 = n_match3[2]; // True if exact color match, False if close-match
+	    var n_match3  = ntc.name(hexcolor);
+	    	n_rgb3        = n_match3[0]; // This is the RGB value of the closest matching color
+	    	n_name3       = n_match3[1]; // This is the text string for the name of the match
+	    	n_exactmatch3 = n_match3[2]; // True if exact color match, False if close-match
 
-	        var mood = "sad";
-	        var moodName;
-	        var mood2;
-	        var moodName2;
-	        var mood3;
-	        var moodName3;
+	    var mood = "sad";
+	    var moodName;
+	    var mood2;
+	    var moodName2;
+	    var mood3;
+	    var moodName3;
 
-	alert(n_name+" "+n_name2+" "+n_name3);
+	    var e1 = "trust";
+	    var e2 = "anger";
+	    var e3 = "sadness";
+	    var emotionCombo = [
+	    ["null","trust","fear","surprise","sadness","disgust","anger","anticipation","joy"],
+	    ["trust","trust","submission","curiosity","sentimentality","conflict","dominance","fatalism","love"],
+	    ["fear","submission","fear","alarm","despair","shame","conflict","anxiety","guilt"],
+	    ["surprise","curiosity","despair","surprise","disappointment","?","outrage","conflict","delight"],
+	    ["sadness","sentimentality","alarm","disappointment","sadness","remorse","envy","pessimism","conflict"],
+	    ["disgust","conflict","shame","?","remorse","disgust","contempt","cynicism","morbidness"],
+	    ["anger","dominance","conflict","outrage","envy","contempt","anger","aggression","pride"],
+	    ["anticipation","fatalism","anxiety","conflict","pessimism","cynicism","aggression","anticipation","optimism"],
+	    ["joy","love","guilt","delight","conflict","morbidness","pride","optimism","joy"]
+	    ];
 
-	var colorPalette = 
-	"<h2>Color Palette</h2>"+
-	"<h1>"+n_name+"</h1>"+
-	"<div id='colorsInHere'>"+
-	"<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
-	"</div>";
+	    function emotionToNum(emotion){
+	    	var num;
+	    	if(emotion=="trust"){
+	    		num=1;
+	    	} else if(emotion=="fear"){
+	    		num=2;
+	    	} else if(emotion=="surprise"){
+	    		num=3;
+	    	} else if(emotion=="sadness"){
+	    		num=4;
+	    	} else if(emotion=="disgust"){
+	    		num=5;
+	    	} else if(emotion=="anger"){
+	    		num=6;
+	    	} else if(emotion=="anticipation"){
+	    		num=7;
+	    	} else if(emotion=="joy"){
+	    		num=8;
+	    	}
+	    	return num;
+	    }
+
+	    /*function getRandomInt(min, max) {
+	    	return Math.floor(Math.random() * (max - min + 1)) + min;
+	    }*/
+
+	    var emoNum1 = emotionToNum(e1);
+	    var emoNum2 = emotionToNum(e2);
+	    var emoNum3 = emotionToNum(e3);
+	    var emoCombo1 =emotionCombo[emoNum1][emoNum2];
+	    var emoCombo2 =emotionCombo[emoNum2][emoNum3];
+	    var emoCombo3 =emotionCombo[emoNum1][emoNum3];
+	    //var emoNum1r = getRandomInt(1,8);
+	    //var emoNum2r = getRandomInt(1,8);
+
+	    console.log("Simple Emotion 1: "+e1);
+	    console.log("Simple Emotion 2: "+e2);
+	    console.log("Simple Emotion 3: "+e3);
+	    console.log("Complex Emotion 1: "+emoCombo1);
+	    console.log("Complex Emotion 2: "+emoCombo2);
+	    console.log("Complex Emotion 3: "+emoCombo3);
+
+	    //console.log("Random");
+	    //console.log(e1+" "+emoNum1r);
+	    //console.log(e2+" "+emoNum2r);
+	    //console.log(emotionCombo[emoNum1r][emoNum2r]);
+
+	    var colorPalette = 
+	    "<h2>Color Palette</h2>"+
+	    "<h1>"+emoNum1+"</h1>"+
+	    "<div id='colorsInHere'>"+
+	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
+	    "</div>";
 
 	//alert("Mood # is: "+ mood);
 	$.get( "php/undertone.php", { themood: mood } )
