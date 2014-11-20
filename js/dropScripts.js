@@ -12,11 +12,26 @@ $(function(){
 		$('#click-image-upload').click();
 
 	});
-	/*$.mousedown(function(){
-		$.mousemove(function(){
-			alert('dragging!');
-		});
-	});*/
+
+	var isDragging = false;
+	$(document)
+		.mousedown(function() {
+		    $(window).mousemove(function() {
+		        isDragging = true;
+		        $(window).unbind("mousemove");
+		        $('.imgOption').hide();
+		    });
+		})
+		.mouseup(function() {
+		    var wasDragging = isDragging;
+		    isDragging = false;
+		    $(window).unbind("mousemove");
+		    if (!wasDragging) { //was clicking
+		    }
+		    if(wasDragging) {  //drag is over
+		    	$('.imgOption').show();
+		    }
+	});
 
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
@@ -503,7 +518,7 @@ ntc.init();
 				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player' autoplay controls><source src='"+track+"' type='audio/mpeg'></audio>";
 				$('#stuffhere').html(style);
 				var length = document.getElementById("player");
-				setTimeout(function(){
+				setTimeout(function(){   //this gets the length of the song playing
 					var tracktime = length.duration;
 					var minutes = tracktime/60;
 					var seconds = (minutes % 1)*.6;
@@ -511,26 +526,18 @@ ntc.init();
 					var second = Math.round(100*seconds)/100;
 					var time = minute+second;
 					alert(time);
-				},500);
-				
-				$('#player').on('ended', function() {
+				},600);
+				setInterval(function () { //this will be the countdown function maybe
+
+					}, 1000);
+				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(mood);
 				});
-				//var audio    = new Audio();
-				//audio.controls = true;
-				//audio.src = track;
-				//$('#stuffhere').html(audio);
-				//style.addEventListener("ended", function() {
-				//	getSongs(mood);
-				//	alert('function went');
-				//});
-				//audio.play();
 			}
 		});
 	};
 
 	function superDuperRoundingMagicMachine(soiledIt){
-
 		if (soiledIt < 26){
 			soiledIt = 00;
 		}
@@ -551,7 +558,6 @@ ntc.init();
 		}
 		return soiledIt;
 	}
-
 	var r = superDuperRoundingMagicMachine(firstcolorR);
 	var g = superDuperRoundingMagicMachine(firstcolorG);
 	var b = superDuperRoundingMagicMachine(firstcolorB);
@@ -563,10 +569,7 @@ ntc.init();
 	var r3 = superDuperRoundingMagicMachine(thirdcolorR);
 	var g3 = superDuperRoundingMagicMachine(thirdcolorG);
 	var b3 = superDuperRoundingMagicMachine(thirdcolorB);
-
-	//==============================================================================================
-
-
+//==============================================================================================
 	function componentToHex(c) {
 		var hex = c.toString(16);
 		return hex.length == 1 ? "0" + hex : hex;
@@ -575,7 +578,6 @@ ntc.init();
 	function rgbToHex(r, g, b) {
 		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 	}   
-
 	    //alert(r + "  " + g + " " + b);
 	    var hexcolor = rgbToHex(r,g,b);
 	    var hexcolor2 = rgbToHex(r2,g2,b2);
