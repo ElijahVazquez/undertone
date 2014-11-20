@@ -12,7 +12,11 @@ $(function(){
 		$('#click-image-upload').click();
 
 	});
-
+	/*$.mousedown(function(){
+		$.mousemove(function(){
+			alert('dragging!');
+		});
+	});*/
 
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
@@ -498,8 +502,18 @@ ntc.init();
 				var track = data['track'];
 				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player' autoplay controls><source src='"+track+"' type='audio/mpeg'></audio>";
 				$('#stuffhere').html(style);
+				var length = document.getElementById("player");
+				setTimeout(function(){
+					var tracktime = length.duration;
+					var minutes = tracktime/60;
+					var seconds = (minutes % 1)*.6;
+					var minute = Math.round(minutes);
+					var second = Math.round(100*seconds)/100;
+					var time = minute+second;
+					alert(time);
+				},500);
+				
 				$('#player').on('ended', function() {
-					alert('song ended!');
 					getSongs(mood);
 				});
 				//var audio    = new Audio();
