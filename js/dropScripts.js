@@ -477,7 +477,22 @@ function colorToMood(){
 	  
 
 	//=========================================turn RGB into websafe================================
-
+	function getSongs(mood) {
+			alert(mood);
+			$.ajax({
+				url:"php/8track.php",
+				data: 'mood='+mood,
+				crossDomain: false,
+				dataType:"json",
+				success: function(data){
+					var title = data['title'];
+					var artist = data['artist'];
+					var track = data['track'];
+					var style = "<audio controls><source src='"+track+"' type='audio/mpeg'></audio>";
+					document.write(title+artist+style);
+				}
+			});
+	};
 
 	function superDuperRoundingMagicMachine(soiledIt){
 
@@ -544,7 +559,7 @@ function colorToMood(){
 	    moodName = 'Aggressive';
 	} else if (n_name == 'green'){
 	    mood = '65332';//Lively';
-	    moodName = 'Lively';
+	    moodName = 'lively';
 	} else if (n_name == 'blue'){
 	    mood = '65326'; //Cool';
 	    moodName = 'Cool';
@@ -587,6 +602,7 @@ function colorToMood(){
 	            $('#colorPalette').html(colorPalette);
 	            $(".swatches").css("background-color",hexcolor);
 	            //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
+	      		getSongs(moodName);
 	      });
 	   
 
