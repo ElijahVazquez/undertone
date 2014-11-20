@@ -357,7 +357,8 @@ function createImage(file){
 	          },
 	//black white grey red green blue yellow pink purple orange 
 
-	names: ['000000', 'fear'],
+	names: [
+			['000000', 'fear'],
 	   	   ['000033', 'fear'],
 	   	   ['000066', 'sadness'],
 	   	   ['000099', 'sadness'],
@@ -500,7 +501,7 @@ function createImage(file){
 	   	   ['99FF66', 'joy'],
 	   	   ['99FF99', 'joy'],
 	   	   ['99FFCC', 'joy'],
-	   	   ['99FFFF', 'joy']j,
+	   	   ['99FFFF', 'joy'],
 	   	   ['CC0000', 'anger'],
 	   	   ['CC0033', 'anger'],
 	   	   ['CC0066', 'sadness'],
@@ -525,12 +526,12 @@ function createImage(file){
 	   	   ['CC9999', 'sadness'],
 	   	   ['CC99CC', 'sadness'],
 	   	   ['CC99FF', 'joy'],
-	   	   ['CCCC00', 'sad'],
-	   	   ['CCCC33', 'sad'],
-	   	   ['CCCC66', 'sad'],
-	   	   ['CCCC99', 'sad'],
-	   	   ['CCCCCC', 'sad'],
-	   	   ['CCCCFF', 'sad'],
+	   	   ['CCCC00', 'sadness'],
+	   	   ['CCCC33', 'sadness'],
+	   	   ['CCCC66', 'sadness'],
+	   	   ['CCCC99', 'sadness'],
+	   	   ['CCCCCC', 'sadness'],
+	   	   ['CCCCFF', 'sadness'],
 	   	   ['CCFF00', 'surprise'],
 	   	   ['CCFF33', 'surprise'],
 	   	   ['CCFF66', 'joy'],
@@ -629,7 +630,7 @@ ntc.init();
 					    
 					}, 1000);*/
 				$('#player').on('ended', function() { //this makes the next song come
-					getSongs(mood);
+					getSongs(emoCombo1);
 				});
 			}
 		});
@@ -711,9 +712,9 @@ ntc.init();
 	    	var mood3;
 	    	var moodName3;
 
-	    	var e1 = "trust";
-	    	var e2 = "anger";
-	    	var e3 = "sadness";
+	    	var e1 = n_name;
+	    	var e2 = n_name2;
+	    	var e3 = n_name3;
 	    	var emotionCombo = [
 	    	["null","trust","fear","surprise","sadness","disgust","anger","anticipation","joy"],
 	    	["trust","trust","submission","curiosity","sentimentality","conflict","dominance","fatalism","love"],
