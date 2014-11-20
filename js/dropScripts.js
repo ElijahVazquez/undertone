@@ -41,7 +41,7 @@ $(function(){
 		$('#click-image-upload').click();
 	});
 	
-	$('#click-image-upload').change(function(){
+	/*$('#click-image-upload').change(function(){
 	    alert("in");
 	    var theImg;
 	    //console.log(this.files[0]);
@@ -111,7 +111,7 @@ $(function(){
 	    	//}
 
 	    });
-	});
+	});*/
 
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
@@ -120,8 +120,13 @@ $(function(){
 		maxfiles: 5,
 		maxfilesize: 3,
 		url: 'php/post_file.php',
+
+		drop:function(){
+			$('.loader').fadeIn().delay(1000);
+		},
 		
 		uploadFinished:function(i,file,response){
+			$('.loader').fadeOut();
 			$.data(file).addClass('done');
 			// response is the JSON object that post_file.php returns
 		},
@@ -200,7 +205,7 @@ function createImage(file){
 		var myImage = new Image();
 		myImage.onload = function() {
 			var colorThief = new ColorThief();
-			paletteArray = colorThief.getPalette(myImage, 4);
+			paletteArray = colorThief.getPalette(myImage, 5);
 			colorToMood();
 		  //alert(paletteArray[0]); //IT FREAKING WORKS, HERE IS THE COLOR BITCHES
 		}
@@ -254,6 +259,14 @@ function createImage(file){
 	    		thirdcolorR = paletteArray[2][0];
 	    		thirdcolorG = paletteArray[2][1];
 	    		thirdcolorB = paletteArray[2][2];
+
+	    		fourthcolorR = paletteArray[3][0];
+	    		fourthcolorG = paletteArray[3][1];
+	    		fourthcolorB = paletteArray[3][2];
+
+	    		fifthcolorR = paletteArray[4][0];
+	    		fifthcolorG = paletteArray[4][1];
+	    		fifthcolorB = paletteArray[4][2];
 	    	}
 	        /*for(i=0; i<paletteArray.length; i++){
 	           var ? = paletteArray[i]
@@ -668,6 +681,14 @@ ntc.init();
 	var r3 = superDuperRoundingMagicMachine(thirdcolorR);
 	var g3 = superDuperRoundingMagicMachine(thirdcolorG);
 	var b3 = superDuperRoundingMagicMachine(thirdcolorB);
+
+	var r4 = superDuperRoundingMagicMachine(fourthcolorR);
+	var g4 = superDuperRoundingMagicMachine(fourthcolorG);
+	var b4 = superDuperRoundingMagicMachine(fourthcolorB);
+
+	var r5 = superDuperRoundingMagicMachine(fifthcolorR);
+	var g5 = superDuperRoundingMagicMachine(fifthcolorG);
+	var b5 = superDuperRoundingMagicMachine(fifthcolorB);
 //==============================================================================================
 	function componentToHex(c) {
 		var hex = c.toString(16);
@@ -681,19 +702,14 @@ ntc.init();
 	    var hexcolor = rgbToHex(r,g,b);
 	    var hexcolor2 = rgbToHex(r2,g2,b2);
 	    var hexcolor3 = rgbToHex(r3,g3,b3);
+	    var hexcolor4 = rgbToHex(r4,g4,b4);
+	    var hexcolor5 = rgbToHex(r5,g5,b5);
 
 	    var n_match  = ntc.name(hexcolor);
 	        n_rgb        = n_match[0]; // This is the RGB value of the closest matching color
 	        n_name       = n_match[1]; // This is the text string for the name of the match
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
-
-	var colorPalette = 
-	"<h2>Color Palette</h2>"+
-	"<h1>"+ moodName +"</h1>"+
-	"<div id='colorsInHere'>"+
-	"<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
-	"</div>";
 
 	var n_match2  = ntc.name(hexcolor2);
 		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
@@ -778,7 +794,7 @@ ntc.init();
 	    "<h2>Color Palette</h2>"+
 	    "<h1>"+emoCombo1+"</h1>"+
 	    "<div id='colorsInHere'>"+
-	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
+	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
 	    "</div>";
 
 	//alert("Mood # is: "+ mood);
@@ -791,6 +807,8 @@ ntc.init();
 	        $(".swatches:first-child").css("background-color",hexcolor);
 	        $(".swatches:nth-child(2)").css("background-color",hexcolor2);
 	        $(".swatches:nth-child(3)").css("background-color",hexcolor3);
+	        $(".swatches:nth-child(4)").css("background-color",hexcolor4);
+	        $(".swatches:nth-child(5)").css("background-color",hexcolor5);
 
 	        //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
 			// });
