@@ -482,21 +482,37 @@ ntc.init();
 
 
 	//=========================================turn RGB into websafe================================
+	var style;
+	var audio;
 	function getSongs(mood) {
-			alert(mood);
-			$.ajax({
-				url:"php/8track.php",
-				data: 'mood='+mood,
-				crossDomain: false,
-				dataType:"json",
-				success: function(data){
-					var title = data['title'];
-					var artist = data['artist'];
-					var track = data['track'];
-					var style = "<audio controls><source src='"+track+"' type='audio/mpeg'></audio>";
-					document.write(title+artist+style);
-				}
-			});
+		//alert(mood);
+		//mood = 'happy';
+		$.ajax({
+			url:"php/8track.php",
+			data: 'mood='+mood,
+			crossDomain: false,
+			dataType:"json",
+			success: function(data){
+				var title = data['title'];
+				var artist = data['artist'];
+				var track = data['track'];
+				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player' autoplay controls><source src='"+track+"' type='audio/mpeg'></audio>";
+				$('#stuffhere').html(style);
+				$('#player').on('ended', function() {
+					alert('song ended!');
+					getSongs(mood);
+				});
+				//var audio    = new Audio();
+				//audio.controls = true;
+				//audio.src = track;
+				//$('#stuffhere').html(audio);
+				//style.addEventListener("ended", function() {
+				//	getSongs(mood);
+				//	alert('function went');
+				//});
+				//audio.play();
+			}
+		});
 	};
 
 	function superDuperRoundingMagicMachine(soiledIt){
@@ -556,11 +572,11 @@ ntc.init();
 	        n_name       = n_match[1]; // This is the text string for the name of the match
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
-<<<<<<< HEAD
-	var mood;
-	var moodName;
 
-	if (n_name == 'red'){
+	        /*var mood;
+	        var moodName;
+
+	  if (n_name == 'red'){
 	    mood = '42958';//Aggressive';
 	    moodName = 'Aggressive';
 	} else if (n_name == 'green'){
@@ -591,67 +607,67 @@ ntc.init();
 	    mood = '65332'; //Peaceful
 	    moodName = 'Peaceful';
 	} else{ alert('I tried to make ramen in the coffee pot and broke everything..') }
-
+	*/
 	var colorPalette = 
-	                    "<h2>Color Palette</h2>"+
-	                    "<h1>"+ moodName +"</h1>"+
-	                    "<div id='colorsInHere'>"+
-	                        "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
-	                    "</div>";
-=======
-	    var n_match2  = ntc.name(hexcolor2);
+	"<h2>Color Palette</h2>"+
+	"<h1>"+ moodName +"</h1>"+
+	"<div id='colorsInHere'>"+
+	"<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
+	"</div>";
+
+	var n_match2  = ntc.name(hexcolor2);
 		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
 		    n_name2       = n_match2[1]; // This is the text string for the name of the match
 		    n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
 
-	    var n_match3  = ntc.name(hexcolor);
+		    var n_match3  = ntc.name(hexcolor);
 	    	n_rgb3        = n_match3[0]; // This is the RGB value of the closest matching color
 	    	n_name3       = n_match3[1]; // This is the text string for the name of the match
 	    	n_exactmatch3 = n_match3[2]; // True if exact color match, False if close-match
 
-	    var mood = "sad";
-	    var moodName;
-	    var mood2;
-	    var moodName2;
-	    var mood3;
-	    var moodName3;
+	    	var mood = "sad";
+	    	var moodName;
+	    	var mood2;
+	    	var moodName2;
+	    	var mood3;
+	    	var moodName3;
 
-	    var e1 = "trust";
-	    var e2 = "anger";
-	    var e3 = "sadness";
-	    var emotionCombo = [
-	    ["null","trust","fear","surprise","sadness","disgust","anger","anticipation","joy"],
-	    ["trust","trust","submission","curiosity","sentimentality","conflict","dominance","fatalism","love"],
-	    ["fear","submission","fear","alarm","despair","shame","conflict","anxiety","guilt"],
-	    ["surprise","curiosity","despair","surprise","disappointment","?","outrage","conflict","delight"],
-	    ["sadness","sentimentality","alarm","disappointment","sadness","remorse","envy","pessimism","conflict"],
-	    ["disgust","conflict","shame","?","remorse","disgust","contempt","cynicism","morbidness"],
-	    ["anger","dominance","conflict","outrage","envy","contempt","anger","aggression","pride"],
-	    ["anticipation","fatalism","anxiety","conflict","pessimism","cynicism","aggression","anticipation","optimism"],
-	    ["joy","love","guilt","delight","conflict","morbidness","pride","optimism","joy"]
-	    ];
+	    	var e1 = "trust";
+	    	var e2 = "anger";
+	    	var e3 = "sadness";
+	    	var emotionCombo = [
+	    	["null","trust","fear","surprise","sadness","disgust","anger","anticipation","joy"],
+	    	["trust","trust","submission","curiosity","sentimentality","conflict","dominance","fatalism","love"],
+	    	["fear","submission","fear","alarm","despair","shame","conflict","anxiety","guilt"],
+	    	["surprise","curiosity","despair","surprise","disappointment","?","outrage","conflict","delight"],
+	    	["sadness","sentimentality","alarm","disappointment","sadness","remorse","envy","pessimism","conflict"],
+	    	["disgust","conflict","shame","?","remorse","disgust","contempt","cynicism","morbidness"],
+	    	["anger","dominance","conflict","outrage","envy","contempt","anger","aggression","pride"],
+	    	["anticipation","fatalism","anxiety","conflict","pessimism","cynicism","aggression","anticipation","optimism"],
+	    	["joy","love","guilt","delight","conflict","morbidness","pride","optimism","joy"]
+	    	];
 
-	    function emotionToNum(emotion){
-	    	var num;
-	    	if(emotion=="trust"){
-	    		num=1;
-	    	} else if(emotion=="fear"){
-	    		num=2;
-	    	} else if(emotion=="surprise"){
-	    		num=3;
-	    	} else if(emotion=="sadness"){
-	    		num=4;
-	    	} else if(emotion=="disgust"){
-	    		num=5;
-	    	} else if(emotion=="anger"){
-	    		num=6;
-	    	} else if(emotion=="anticipation"){
-	    		num=7;
-	    	} else if(emotion=="joy"){
-	    		num=8;
+	    	function emotionToNum(emotion){
+	    		var num;
+	    		if(emotion=="trust"){
+	    			num=1;
+	    		} else if(emotion=="fear"){
+	    			num=2;
+	    		} else if(emotion=="surprise"){
+	    			num=3;
+	    		} else if(emotion=="sadness"){
+	    			num=4;
+	    		} else if(emotion=="disgust"){
+	    			num=5;
+	    		} else if(emotion=="anger"){
+	    			num=6;
+	    		} else if(emotion=="anticipation"){
+	    			num=7;
+	    		} else if(emotion=="joy"){
+	    			num=8;
+	    		}
+	    		return num;
 	    	}
-	    	return num;
-	    }
 
 	    /*function getRandomInt(min, max) {
 	    	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -684,32 +700,23 @@ ntc.init();
 	    "<div id='colorsInHere'>"+
 	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
 	    "</div>";
->>>>>>> FETCH_HEAD
 
 	//alert("Mood # is: "+ mood);
-	$.get( "php/undertone.php", { themood: mood } )
-	.done(function( data ) {
-	            //alert( "Data Loaded: " + data );
-	            
-	            $('#stuffhere').html(data);
-	            $('#colorPalette').html(colorPalette);
-	            $(".swatches:first-child").css("background-color",hexcolor);
-	            $(".swatches:nth-child(2)").css("background-color",hexcolor2);
-	            $(".swatches:nth-child(3)").css("background-color",hexcolor3);
-	            //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
-<<<<<<< HEAD
-	      		getSongs(moodName);
-	      });
-	   
-=======
-	        });
+	//$.get( "php/undertone.php", { themood: mood } )
+	//.done(function( data ) {
+	//alert( "Data Loaded: " + data );
+	        getSongs(emoCombo1);
+	        $('#stuffhere').html(style);
+	        $('#colorPalette').html(colorPalette);
+	        $(".swatches:first-child").css("background-color",hexcolor);
+	        $(".swatches:nth-child(2)").css("background-color",hexcolor2);
+	        $(".swatches:nth-child(3)").css("background-color",hexcolor3);
 
->>>>>>> FETCH_HEAD
+	        //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
+			// });
+};
 
-
-	    };//);
-
-
+	    //};//);
 $("#openWebcam").click(function(){
 	var sayCheese = new SayCheese('#container-element', { snapshots: true });
 	$("#capture").delay(800).fadeIn(1);
