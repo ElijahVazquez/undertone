@@ -622,7 +622,7 @@ ntc.init();
 
 	    var colorPalette = 
 	    "<h2>Color Palette</h2>"+
-	    "<h1>"+emoNum1+"</h1>"+
+	    "<h1>"+emoCombo1+"</h1>"+
 	    "<div id='colorsInHere'>"+
 	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
 	    "</div>";
