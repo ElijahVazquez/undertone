@@ -38,15 +38,17 @@ if(!$counter){
 		$skip = $play->set->skip_allowed;   //if we add skips this will help
 			/*echo "<pre>";
 			echo "<br><br>";
-			var_dump($end);
+			var_dump($play);
 			echo "</pre>";*/
 		$jsonArray = array('title'=>$title,'artist'=>$artist,'track'=>$trackUrl);
 		echo json_encode($jsonArray);
+		//echo "in top part";
 		$_SESSION['counter'] = true;
 		$_SESSION['token'] = $token;
 		$_SESSION['id'] = $id;
 		$_SESSION['end'] = $end;
 		$_SESSION['mood'] = $tag;
+		//session_destroy();
 	}else{
 		$jsonArray = array('title'=>'sorry, something went wrong.','artist'=>' ','track'=>' ');
 		echo json_encode($jsonArray);
@@ -68,11 +70,21 @@ if($counter){
 			echo "<br><br>";
 			var_dump($next);
 			echo "</pre>";*/
-		$jsonArray = array('title'=>$title,'artist'=>$artist,'track'=>$trackUrl);
-		echo json_encode($jsonArray);
+		if($title == NULL){
+			//echo 'its null';
+			$jsonArray = array('title'=>'Requests too quick, please','artist'=>'wait and try agian.','track'=>$trackUrl);
+			echo json_encode($jsonArray);
+		}
+		if($title != NULL){
+			//echo 'its not null';
+			$jsonArray = array('title'=>$title,'artist'=>$artist,'track'=>$trackUrl);
+			echo json_encode($jsonArray);
+		}
+		//echo "in bottom part";
 		$_SESSION['end'] = $end;
 		$_SESSION['mood'] = $tag;
 		//echo $_SESSION['mood'];
+		//session_destroy();
 	}
 	if($end){
 		$jsonArray = array('title'=>$title,'artist'=>$artist,'track'=>$trackUrl);

@@ -41,9 +41,8 @@ $(function(){
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
-	$('#click-image-upload').change(function(Files){
-	    //alert("in");
-	    var theImg;// = new Image;
+	$('#click-image-upload').change(function(files){
+		$('.loader').fadeIn().delay(1000);
 	    var file = this.files[0];
 	    createImage(file);
 	    $('#stuffhere').show();
@@ -63,15 +62,6 @@ $(function(){
 		},
 		
 		uploadFinished:function(i,file,response){
-			$('.loader').fadeOut(function(){
-				$('html,body').animate({
-				    scrollTop: $('#lifeForce').offset().top
-				}, 1000);
-				$('.imgOptionWide').fadeOut(200, function(){
-					$('.imgOption').fadeIn(200);
-				});
-				return false;
-			});
 			$.data(file).addClass('done');
 			// response is the JSON omject that post_file.php returns
 		},
@@ -557,37 +547,20 @@ ntc.init();
 				var track = data['track'];
 				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player'><source src="+track+"></audio><div id='audioplayer'><div class='mood-title'><div class='playlist flex direction-column'><div class='playlist-based'>Playlist Based On</div><div class='playlist-emotion'>The Bae</div></div></div><div class='player-main'><div class='player-contents flex direction-row align-center'><button id='pButton' class='play' onclick='play()'></button><div class='player-song'><p class='song-name'>Sad Machine</p><p class='artist-name'>Porter Robinson</p><p class='album-name'>Worlds</p></div><div class='timestamp'>5:58</div></div><div id='timeline'><div id='playhead'></div></div></div></div>";
 				$('#stuffhere').html(style);
-				var length = document.getElementById("player");
-				setTimeout(function(){   //this gets the length of the song playing
-					var tracktime = length.duration;
-					var minutes = tracktime/60;
-					var seconds = (minutes % 1)*.6;
-					var minute = Math.round(minutes);
-					var second = Math.round(100*seconds)/100;
-					var time = minute+second;
-				},1000);
-				/*setInterval(function () { //this will be the countdown function maybe
-					    var timeleft = document.getElementById('timeleft'),
-					        duration = parseInt( audio.duration ),
-					        currentTime = parseInt( audio.currentTime ),
-					        timeLeft = duration - currentTime,
-					        s, m;
-					    console.log('timeupdate');
-					    
-					    
-					    s = timeLeft % 60;
-					    m = Math.floor( timeLeft / 60 ) % 60;
-					    
-					    s = s < 10 ? "0"+s : s;
-					    m = m < 10 ? "0"+m : m;
-					    
-					    timeleft.innerHTML = m+":"+s;
-					    
-					}, 1000);*/
 				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(emoCombo1);
+					//alert('fired');
 				});
 			}
+		});
+		$('.loader').fadeOut(function(){
+			$('html,body').animate({
+			    scrollTop: $('#lifeForce').offset().top
+			}, 1000);
+			$('.imgOptionWide').fadeOut(200, function(){
+				$('.imgOption').fadeIn(200);
+			});
+			return false;
 		});
 	};
 
@@ -764,13 +737,14 @@ $("#camera").click(function(){
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
 	sayCheese.on('start', function() {
-	     // do something when started	     
+	     // do something when started	
+	         
 	 });
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
 		var preview = $(template);
 		$(img).on('load', function() {
-			$('#say-cheese-snapshots').prepend(img);
+			//$('#stuffhere').prepend(img);
 			var colorThief = new ColorThief();
 			paletteArray = colorThief.getPalette(img, 5);
 			colorToMood();
@@ -785,11 +759,11 @@ $("#camera").click(function(){
 		$("#capture").hide();
 		//$.data(File,preview);
 		//alert(File);
-		
 	});
 
 	sayCheese.start();
 	$("#capture").click(function(img){
+		$('.loader').fadeIn().delay(1000); 
 		sayCheese.takeSnapshot();
 		
 	});
