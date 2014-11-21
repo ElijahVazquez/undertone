@@ -50,7 +50,7 @@ if(!$counter){
 		$_SESSION['mood'] = $tag;
 		//session_destroy();
 	}else{
-		$jsonArray = array('title'=>'sorry, something went wrong.','artist'=>' ','track'=>' ');
+		$jsonArray = array('title'=>'sorry, something went wrong.','artist'=>' ','track'=>'http://soundfxcenter.com/video-games/new-super-mario-bros/563f23_New_Super_Mario_Bros_Death_Sound_Effect.mp3');
 		echo json_encode($jsonArray);
 	}
 }
