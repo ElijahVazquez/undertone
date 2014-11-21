@@ -15,6 +15,7 @@ $(function(){
 	    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
 	        $('.imgOption').fadeOut(200, function(){
 	        	$('.imgOptionWide').fadeIn(200);
+	        	testforsize();
 	        });
 	        window.clearTimeout(dragTimer);
 	    }
@@ -23,6 +24,7 @@ $(function(){
 	    dragTimer = window.setTimeout(function() {
 	        $('.imgOptionWide').fadeOut(200, function(){
 	        	$('.imgOption').fadeIn(200);
+	        	testforsize();
 	        });
 	    }, 100);
 	});
@@ -561,6 +563,7 @@ ntc.init();
 			}, 1000);
 			$('.imgOptionWide').fadeOut(200, function(){
 				$('.imgOption').fadeIn(200);
+				testforsize();
 			});
 			return false;
 		});
@@ -729,6 +732,7 @@ ntc.init();
 			// });
 };
 
+
 	    //};//);
 $("#camera").click(function(){
 	var sayCheese = new SayCheese('#webcam-inner', { snapshots: true });
@@ -750,6 +754,7 @@ $("#camera").click(function(){
 			$('#stuffhere').show();
 			$('#colorPalette').show();
 			$('.imgOption').show();
+			testforsize();
 			$("#webcam").hide();
 		});
 		img.src = snapshot.toDataURL('image/png');
@@ -889,6 +894,14 @@ $("#camera").click(function(){
 		}
 	}
 
+function testforsize(){
+	if($(window).width() < 580){
+		$('#camera').hide();
+		return;
+	}else{
+		return;
+	}
+}
 });
 
 
