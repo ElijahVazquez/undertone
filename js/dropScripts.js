@@ -37,9 +37,8 @@ $(function(){
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
-	$('#click-image-upload').change(function(Files){
-	    //alert("in");
-	    var theImg;// = new Image;
+	$('#click-image-upload').change(function(files){
+		$('.loader').fadeIn().delay(1000);
 	    var file = this.files[0];
 	    createImage(file);
 	    $('#stuffhere').show();
@@ -59,15 +58,6 @@ $(function(){
 		},
 		
 		uploadFinished:function(i,file,response){
-			$('.loader').fadeOut(function(){
-				$('html,body').animate({
-				    scrollTop: $('#lifeForce').offset().top
-				}, 1000);
-				$('.imgOptionWide').fadeOut(200, function(){
-					$('.imgOption').fadeIn(200);
-				});
-				return false;
-			});
 			$.data(file).addClass('done');
 			// response is the JSON omject that post_file.php returns
 		},
@@ -560,8 +550,18 @@ ntc.init();
 				$("#player").attr("src",track);
 				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(emoCombo1);
+					//alert('fired');
 				});
 			}
+		});
+		$('.loader').fadeOut(function(){
+			$('html,body').animate({
+			    scrollTop: $('#lifeForce').offset().top
+			}, 1000);
+			$('.imgOptionWide').fadeOut(200, function(){
+				$('.imgOption').fadeIn(200);
+			});
+			return false;
 		});
 	};
 
@@ -738,13 +738,13 @@ $("#camera").click(function(){
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
 	sayCheese.on('start', function() {
-	     // do something when started	     
+	     // do something when started	
+	         
 	 });
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
 		var preview = $(template);
 		$(img).on('load', function() {
-			$('#say-cheese-snapshots').prepend(img);
 			var colorThief = new ColorThief();
 			paletteArray = colorThief.getPalette(img, 5);
 			colorToMood();
@@ -754,16 +754,16 @@ $("#camera").click(function(){
 			$("#webcam").hide();
 		});
 		img.src = snapshot.toDataURL('image/png');
+		$( "#lifeForce" ).append('<div class="preview"><h2>Your Image</h2><span class="imageHolder">');
+		$(".imageHolder").append(img);
+		$(".imageHolder").append('</span></div>');
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
-		//$.data(File,preview);
-		//alert(File);
-		
 	});
-
 	sayCheese.start();
 	$("#capture").click(function(img){
+		$('.loader').fadeIn().delay(1000); 
 		sayCheese.takeSnapshot();
 		
 	});
