@@ -2,6 +2,7 @@ $(function(){
 	var counter=0;
 	$('#stuffhere').hide();
 	$("#colorPalette").hide();
+	$('#capture').hide();
 	$("#hideMe").hide();
 	var dropbox = $('#dropbox'),
 	message = $('.message', dropbox),
@@ -756,44 +757,41 @@ ntc.init();
 };
 
 	    //};//);
-$("#openWebcam").click(function(){
-	var sayCheese = new SayCheese('#container-element', { snapshots: true });
+$("#camera").click(function(){
+	var sayCheese = new SayCheese('#webcam', { snapshots: true });
+	$('.imgOption').hide();
 	$("#capture").delay(800).fadeIn(1);
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
 	sayCheese.on('start', function() {
-	     // do something when started
-	     
+	     // do something when started	     
 	 });
-
-	sayCheese.on('error', function(error) {
-	     // handle errors, such as when a user denies the request to use the webcam,
-	     // or when the getUserMedia API isn't supported
-	 });
-
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
-
+		var preview = $(template);
 		$(img).on('load', function() {
 			$('#say-cheese-snapshots').prepend(img);
+			var colorThief = new ColorThief();
+			paletteArray = colorThief.getPalette(img, 5);
+			colorToMood();
+			$('#stuffhere').show();
+			$('#colorPalette').show();
+			$('.imgOption').show();
+			$("#webcam").hide();
 		});
 		img.src = snapshot.toDataURL('image/png');
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
+		//$.data(File,preview);
+		//alert(File);
+		
 	});
 
 	sayCheese.start();
-	$("#capture").click(function(){
+	$("#capture").click(function(img){
 		sayCheese.takeSnapshot();
+		
 	});
 });
-
-
-}
-
-
-
-
-
-);
+});
