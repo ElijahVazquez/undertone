@@ -194,6 +194,8 @@ input.hidden {
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+}
+.space-between{
 	-webkit-box-pack:space-between;
 	-webkit-justify-content:space-between;
 	    -ms-flex-pack:space-between;
