@@ -40,6 +40,14 @@ $(function(){
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
+	$('#click-image-upload').change(function(Files){
+	    //alert("in");
+	    var theImg;// = new Image;
+	    var file = this.files[0];
+	    createImage(file);
+	    $('#stuffhere').show();
+	    $('#colorPalette').show();
+	});
 
 	dropbox.filedrop({
 		// The name of the $_FILES entry:
