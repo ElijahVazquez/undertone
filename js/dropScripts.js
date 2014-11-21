@@ -12,7 +12,6 @@ $(function(){
 	var dragTimer;
 	$(document).on('dragover', function(e) {
 	    var dt = e.originalEvent.dataTransfer;
-	    console.log('1');
 	    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
 	        $('.imgOption').fadeOut(200, function(){
 	        	$('.imgOptionWide').fadeIn(200);
@@ -21,7 +20,6 @@ $(function(){
 	    }
 	});
 	$(document).on('dragleave', function(e) {
-		console.log('2');
 	    dragTimer = window.setTimeout(function() {
 	        $('.imgOptionWide').fadeOut(200, function(){
 	        	$('.imgOption').fadeIn(200);
@@ -30,11 +28,9 @@ $(function(){
 	});
 
 	$('.imgOptionWide').on('dragover', function(){
-		console.log('drop');
 		$(this).children('p').html('drop photo');
 	});
 	$('.imgOptionWide').on('dragleave', function(){
-		console.log('=======================');
 		$(this).children('p').html('drag image here');
 	});
 
@@ -555,35 +551,13 @@ ntc.init();
 				var title = data['title'];
 				var artist = data['artist'];
 				var track = data['track'];
-				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player'><source src="+track+"></audio><div id='audioplayer'><div class='mood-title'><div class='playlist flex direction-column'><div class='playlist-based'>Playlist Based On</div><div class='playlist-emotion'>The Bae</div></div></div><div class='player-main'><div class='player-contents flex direction-row align-center'><button id='pButton' class='play' onclick='play()'></button><div class='player-song'><p class='song-name'>Sad Machine</p><p class='artist-name'>Porter Robinson</p><p class='album-name'>Worlds</p></div><div class='timestamp'>5:58</div></div><div id='timeline'><div id='playhead'></div></div></div></div>";
-				$('#stuffhere').html(style);
-				var length = document.getElementById("player");
-				setTimeout(function(){   //this gets the length of the song playing
-					var tracktime = length.duration;
-					var minutes = tracktime/60;
-					var seconds = (minutes % 1)*.6;
-					var minute = Math.round(minutes);
-					var second = Math.round(100*seconds)/100;
-					var time = minute+second;
-				},1000);
-				/*setInterval(function () { //this will be the countdown function maybe
-					    var timeleft = document.getElementById('timeleft'),
-					        duration = parseInt( audio.duration ),
-					        currentTime = parseInt( audio.currentTime ),
-					        timeLeft = duration - currentTime,
-					        s, m;
-					    console.log('timeupdate');
-					    
-					    
-					    s = timeLeft % 60;
-					    m = Math.floor( timeLeft / 60 ) % 60;
-					    
-					    s = s < 10 ? "0"+s : s;
-					    m = m < 10 ? "0"+m : m;
-					    
-					    timeleft.innerHTML = m+":"+s;
-					    
-					}, 1000);*/
+				/*var style = "<audio id='player'><source src="+track+"></audio><div id='audioplayer'><div class='mood-title'><div class='playlist flex direction-column'><div class='playlist-based'>Playlist Based On</div><div class='playlist-emotion'>"+mood+"</div></div></div><div class='player-main'><div class='player-contents flex direction-row align-center'><button id='pButton' class='play' onclick='play()'></button><div class='player-song'><p class='song-name'>"+title+"</p><p class='artist-name'>"+artist+"</p></div><div class='timestamp'>5:58</div></div><div id='timeline'><div id='playhead'></div></div></div></div>";
+				$('#stuffhere').html(style);*/
+				console.log(mood+" "+title+" "+artist+" "+track);
+				$(".playlist-emotion").html(mood);
+				$(".song-name").html(title);
+				$(".artist-name").html(artist);
+				$("#player").attr("src",track);
 				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(emoCombo1);
 				});
@@ -794,4 +768,103 @@ $("#camera").click(function(){
 		
 	});
 });
+
+	var music = document.getElementById('player'); // id for audio element
+	var duration; // Duration of audio clip
+	var pButton = document.getElementById('pButton'); // play button
+
+	var playhead = document.getElementById('playhead'); // playhead
+
+	var timeline = document.getElementById('timeline'); // timeline
+	// timeline width adjusted for playhead
+	var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+
+	// timeupdate event listener
+	music.addEventListener("timeupdate", timeUpdate, false);
+
+	//Makes timeline clickable
+	timeline.addEventListener("click", function (event) {
+		moveplayhead(event);
+		music.currentTime = duration * clickPercent(event);
+	}, false);
+
+	// Makes playhead draggable 
+	playhead.addEventListener('mousedown', mouseDown, false);
+	window.addEventListener('mouseup', mouseUp, false);
+
+	// Boolean value so that mouse is moved on mouseUp only when the playhead is released 
+	var onplayhead = false;
+
+	// Gets audio file duration
+	music.addEventListener("canplaythrough", function () {
+		duration = music.duration;  
+	}, false);
+
+	// returns click as decimal (.77) of the total timelineWidth
+	function clickPercent(e) {
+		return (event.pageX - timeline.offsetLeft) / timelineWidth;
+	}
+
+	// mouseDown EventListener
+	function mouseDown() {
+		onplayhead = true;
+		window.addEventListener('mousemove', moveplayhead, true);
+		music.removeEventListener('timeupdate', timeUpdate, false);
+	}
+	// mouseUp EventListener
+	// getting input from all mouse clicks
+	function mouseUp(e) {
+		if (onplayhead == true) {
+			moveplayhead(e);
+			window.removeEventListener('mousemove', moveplayhead, true);
+			// change current time
+			music.currentTime = duration * clickPercent(e);
+			music.addEventListener('timeupdate', timeUpdate, false);
+		}
+		onplayhead = false;
+	}
+	// mousemove EventListener
+	// Moves playhead as user drags
+	function moveplayhead(e) {
+		var newMargLeft = e.pageX - timeline.offsetLeft;
+		if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+			playhead.style.marginLeft = newMargLeft + "px";
+		}
+		if (newMargLeft < 0) {
+			playhead.style.marginLeft = "0px";
+		}
+		if (newMargLeft > timelineWidth) {
+			playhead.style.marginLeft = timelineWidth + "px";
+		}
+	}
+
+	// timeUpdate 
+	// Synchronizes playhead position with current point in audio 
+	function timeUpdate() {
+		var playPercent = timelineWidth * (music.currentTime / duration);
+		playhead.style.marginLeft = playPercent + "px";
+		if (music.currentTime == duration) {
+			pButton.className = "";
+			pButton.className = "play";
+		}
+	}
+
+	//Play and Pause
+	function play() {
+		// start music
+		if (music.paused) {
+			music.play();
+			// remove play, add pause
+			pButton.className = "";
+			pButton.className = "pause";
+		} else { // pause music
+			music.pause();
+			// remove pause, add play
+			pButton.className = "";
+			pButton.className = "play";
+		}
+	}
+
 });
+
+
