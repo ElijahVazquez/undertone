@@ -733,9 +733,7 @@ ntc.init();
 			// });
 };
 
-<<<<<<< HEAD
 
-=======
 function dataURItoBlob(dataURI) {
     // convert base64/URLEncoded data component to raw binary data held in a string
     var byteString;
@@ -755,7 +753,8 @@ function dataURItoBlob(dataURI) {
 
     return new Blob([ia], {type:mimeString});
 }
->>>>>>> Trying-things
+
+
 	    //};//);
 $("#camera").click(function(){
 	var sayCheese = new SayCheese('#webcam-inner', { snapshots: true });
