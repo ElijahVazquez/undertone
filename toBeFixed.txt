@@ -1,0 +1,16 @@
+fix video positioning
+
+upload over max size still brings up loader(stuck)
+
+ncorrect file selection (like pdf) still brings up loader(stuck)
+
+cancel file upload triggers loading(stuck)
+
+file upload has no size limit(scary!)
+
+uploading then snapping a picture(just gets added)
+
+Snapping a picture then uploading new
+basically snapping a picture then doing anything
+
+dragging an image from the web (triggers loader somehow but nothing else)
