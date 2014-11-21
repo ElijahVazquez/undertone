@@ -692,12 +692,10 @@ ntc.init();
 	    var emoCombo1 =emotionCombo[emoNum1][emoNum2];
 	    var emoCombo2 =emotionCombo[emoNum2][emoNum3];
 	    var emoCombo3 =emotionCombo[emoNum1][emoNum3];
-	    //var emoNum1r = getRandomInt(1,8);
-	    //var emoNum2r = getRandomInt(1,8);
 
-	    console.log("Simple Emotion 1: "+e1);
-	    console.log("Simple Emotion 2: "+e2);
-	    console.log("Simple Emotion 3: "+e3);
+	    console.log("Simple Emotion 1: "+e1+" "+emoNum1);
+	    console.log("Simple Emotion 2: "+e2+" "+emoNum2);
+	    console.log("Simple Emotion 3: "+e3+" "+emoNum3);
 	    console.log("Complex Emotion 1: "+emoCombo1);
 	    console.log("Complex Emotion 2: "+emoCombo2);
 	    console.log("Complex Emotion 3: "+emoCombo3);
@@ -733,7 +731,7 @@ ntc.init();
 
 	    //};//);
 $("#camera").click(function(){
-	var sayCheese = new SayCheese('#webcam', { snapshots: true });
+	var sayCheese = new SayCheese('#webcam-inner', { snapshots: true });
 	$('.imgOption').hide();
 	$("#capture").delay(800).fadeIn(1);
 	$("#drop-zone").fadeOut(800);
@@ -814,7 +812,6 @@ $("#camera").click(function(){
 
 	    if(second<10){ sec = "0"+second }
 	    	else { sec = second; }
-	    console.log(min+":"+sec);
 	    $('.timestamp').html(min+":"+sec);
 	    /*if(currentTime<10){
 		    $('.timestamp').html("0:0"+currentTime);

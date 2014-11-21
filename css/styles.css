@@ -390,6 +390,13 @@ input.hidden {
 	margin-left: 8px;
 	margin-left: .5rem;
 }
+#webcam{
+	width:100%;
+}
+#webcam video{
+	display:block;
+	margin:0 auto;
+}
 /*------------------------- Footer -------------------------*/
 footer{
 	position: relative;
