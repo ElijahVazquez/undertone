@@ -548,6 +548,7 @@ ntc.init();
 				$(".song-name").html(title);
 				$(".artist-name").html(artist);
 				$("#player").attr("src",track);
+				playPause();
 				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(emoCombo1);
 					//alert('fired');
