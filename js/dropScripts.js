@@ -804,10 +804,14 @@ $("#camera").click(function(){
 	});
 
 	music.addEventListener('timeupdate',function(){
+		var totalTime = Math.floor(music.duration);
 	    var currentTime = Math.round(music.currentTime);
-	    var min = Math.floor(currentTime/60);
-	    var second = Math.round(currentTime % 60);
+	    var timeLeft= totalTime - currentTime;
+	    var min = Math.floor(timeLeft/60);
+	    var second = Math.floor(timeLeft % 60);
 	    var sec;
+	    
+
 	    if(second<10){ sec = "0"+second }
 	    	else { sec = second; }
 	    console.log(min+":"+sec);
