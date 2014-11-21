@@ -744,7 +744,6 @@ $("#camera").click(function(){
 		var img = document.createElement('img');
 		var preview = $(template);
 		$(img).on('load', function() {
-			//$('#stuffhere').prepend(img);
 			var colorThief = new ColorThief();
 			paletteArray = colorThief.getPalette(img, 5);
 			colorToMood();
@@ -754,13 +753,13 @@ $("#camera").click(function(){
 			$("#webcam").hide();
 		});
 		img.src = snapshot.toDataURL('image/png');
+		$( "#lifeForce" ).append('<div class="preview"><h2>Your Image</h2><span class="imageHolder">');
+		$(".imageHolder").append(img);
+		$(".imageHolder").append('</span></div>');
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
-		//$.data(File,preview);
-		//alert(File);
 	});
-
 	sayCheese.start();
 	$("#capture").click(function(img){
 		$('.loader').fadeIn().delay(1000); 
