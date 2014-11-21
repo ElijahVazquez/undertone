@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery-2.1.1.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(function() {
@@ -29,8 +29,7 @@
 	</script>
 </head>
 <body>
-
-<div class="loader fuckgithub">
+<div class="loader">
 	<img src="img/loader.gif" />
 </div>
 <nav>
@@ -55,11 +54,7 @@
 			<input id="click-image-upload" class="hidden" type="file">
 			<div class="imgOption" id="upload-image"><p class="message">click to upload</p></div>
 			<div class="imgOption" id="camera"><p class="message">take a photo</p></div>
-			<div id='webcam'>
-			
-				<button id='capture'>Take photo!</button>
-			</div>
-			
+			<div class="imgOptionWide" id="drag-image"><p class="message">drag photo here</p></div>
 		</div>
 	</section>
 </section>

@@ -3,55 +3,57 @@ $(function(){
 	$('#stuffhere').hide();
 	$("#colorPalette").hide();
 	$("#hideMe").hide();
-	$('#capture').hide();
 	var dropbox = $('#dropbox'),
 	message = $('.message', dropbox),
 	mainBody = $('#lifeForce'),
 	sourceImage;
-	var template = '<div class="preview">'+
-	'<h2>Your Image</h2>'+
-	'<span class="imageHolder">'+
-	'<img class="uploadedImg" />'+
-	'</span>'+
-	'</div>'; 
+
+	var dragTimer;
+	$(document).on('dragover', function(e) {
+	    var dt = e.originalEvent.dataTransfer;
+	    console.log('1');
+	    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
+	        $('.imgOption').fadeOut(200, function(){
+	        	$('.imgOptionWide').fadeIn(200);
+	        });
+	        window.clearTimeout(dragTimer);
+	    }
+	});
+	$(document).on('dragleave', function(e) {
+		console.log('2');
+	    dragTimer = window.setTimeout(function() {
+	        $('.imgOptionWide').fadeOut(200, function(){
+	        	$('.imgOption').fadeIn(200);
+	        });
+	    }, 100);
+	});
+
+	$('.imgOptionWide').on('dragover', function(){
+		console.log('drop');
+		$(this).children('p').html('drop photo');
+	});
+	$('.imgOptionWide').on('dragleave', function(){
+		console.log('=======================');
+		$(this).children('p').html('drag image here');
+	});
 
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
-
-
-	$('#click-image-upload').change(function(Files){
-	    alert("in");
-	    var theImg;// = new Image;
-	    var file = this.files[0];
-	    createImage(file);
-	    $('#stuffhere').show();
-	    $('#colorPalette').show();
-
-        var isDragging = false;
-        $(document)
-        .mousedown(function() {
-        	$(window).mousemove(function() {
-        		isDragging = true;
-        		$(window).unbind("mousemove");
-        		$('.imgOption').hide();
-        	});
-        })
-        .mouseup(function() {
-        	var wasDragging = isDragging;
-        	isDragging = false;
-        	$(window).unbind("mousemove");
-		    if (!wasDragging) { //was clicking
-		    }
-		    if(wasDragging) {  //drag is over
-		    	$('.imgOption').show();
-		    }
-		});
-
-
-
-
-        dropbox.filedrop({
+	
+	/*$('#click-image-upload').change(function(){
+	    
+	    //console.log(this.files[0]);
+	    if (this.files && this.files[0]) {
+	        var reader = new FileReader();
+	        
+	        reader.onload = function (e) {
+	            theImg = e.target.result;
+	            dropbox.append("<img src="+theImg+" />");
+            }        
+            reader.readAsDataURL(this.files[0]);
+	    }
+	    dropbox.filedrop({
 	    	// The name of the $_FILES entry:
 	    	paramname:'pic',
 	    	
@@ -96,30 +98,41 @@ $(function(){
 	    		createImage(file);
 	    		//$("header").hide();
 	    		//$("#mainBody").hide();
-	    		//$("#hideMe").show();
+	    		$("#hideMe").show();
 	    		$('#stuffhere').show();
 	    		$('#colorPalette').show();
-
 	    	},
 	    	
 	    	//progressUpdated: function(i, file, progress) {
 	    	//	$.data(file).find('.progress').width(progress);
 	    	//}
-
 	    });
-});
+	});*/
 
-dropbox.filedrop({
+	dropbox.filedrop({
 		// The name of the $_FILES entry:
 		paramname:'pic',
 		
 		maxfiles: 5,
 		maxfilesize: 3,
 		url: 'php/post_file.php',
+
+		drop:function(){
+			$('.loader').fadeIn().delay(1000);
+		},
 		
 		uploadFinished:function(i,file,response){
+			$('.loader').fadeOut(function(){
+				$('html,body').animate({
+				    scrollTop: $('#lifeForce').offset().top
+				}, 1000);
+				$('.imgOptionWide').fadeOut(200, function(){
+					$('.imgOption').fadeIn(200);
+				});
+				return false;
+			});
 			$.data(file).addClass('done');
-			// response is the JSON object that post_file.php returns
+			// response is the JSON omject that post_file.php returns
 		},
 		
 		error: function(err, file) {
@@ -156,7 +169,6 @@ dropbox.filedrop({
 			$("#hideMe").show();
 			$('#stuffhere').show();
 			$('#colorPalette').show();
-
 		},
 		
 		//progressUpdated: function(i, file, progress) {
@@ -165,7 +177,12 @@ dropbox.filedrop({
 
 	});
 
-
+var template = '<div class="preview">'+
+'<h2>Your Image</h2>'+
+'<span class="imageHolder">'+
+'<img class="uploadedImg" />'+
+'</span>'+
+'</div>'; 
 
 function createImage(file){
 
@@ -191,7 +208,7 @@ function createImage(file){
 		var myImage = new Image();
 		myImage.onload = function() {
 			var colorThief = new ColorThief();
-			paletteArray = colorThief.getPalette(myImage, 4);
+			paletteArray = colorThief.getPalette(myImage, 5);
 			colorToMood();
 		  //alert(paletteArray[0]); //IT FREAKING WORKS, HERE IS THE COLOR BITCHES
 		}
@@ -214,10 +231,8 @@ function createImage(file){
 		// with the file, using jQuery's $.data():
 		
 		$.data(file,preview);
-		//alert(file);
 
-};
-
+	};
 	function showMessage(msg){
 		message.html(msg);
 	}
@@ -232,22 +247,30 @@ function createImage(file){
 		}
 	});
 	//$(document).ready(function(){
+	    //$('#capture').hide();
+	    function colorToMood(){
 
-		function colorToMood(){
+	    	if(paletteArray != null){
+	    		firstcolorR = paletteArray[0][0];
+	    		firstcolorG = paletteArray[0][1];
+	    		firstcolorB = paletteArray[0][2];
 
-			if(paletteArray != null){
-				firstcolorR = paletteArray[0][0];
-				firstcolorG = paletteArray[0][1];
-				firstcolorB = paletteArray[0][2];
+	    		secondcolorR = paletteArray[1][0];
+	    		secondcolorG = paletteArray[1][1];
+	    		secondcolorB = paletteArray[1][2];
 
-				secondcolorR = paletteArray[1][0];
-				secondcolorG = paletteArray[1][1];
-				secondcolorB = paletteArray[1][2];
+	    		thirdcolorR = paletteArray[2][0];
+	    		thirdcolorG = paletteArray[2][1];
+	    		thirdcolorB = paletteArray[2][2];
 
-				thirdcolorR = paletteArray[2][0];
-				thirdcolorG = paletteArray[2][1];
-				thirdcolorB = paletteArray[2][2];
-			}
+	    		fourthcolorR = paletteArray[3][0];
+	    		fourthcolorG = paletteArray[3][1];
+	    		fourthcolorB = paletteArray[3][2];
+
+	    		fifthcolorR = paletteArray[4][0];
+	    		fifthcolorG = paletteArray[4][1];
+	    		fifthcolorB = paletteArray[4][2];
+	    	}
 	        /*for(i=0; i<paletteArray.length; i++){
 	           var ? = paletteArray[i]
 	       }*/
@@ -348,225 +371,223 @@ function createImage(file){
 	          rgb: function(color) {
 	          	return [parseInt('0x' + color.substring(1, 3)), parseInt('0x' + color.substring(3, 5)),  parseInt('0x' + color.substring(5, 7))];
 	          },
-	//black white grey red green blue yellow pink purple orange 
-
 	names: [
-	["000000","fear"],
-	["000033","fear"],
-	["000066","sadness"],
-	["000099","sadness"],
-	["0000CC","sadness"],
-	["0000FF","joy"],
-	["003300","fear"],
-	["003333","fear"],
-	["003366","sadness"],
-	["003399","sadness"],
-	["0033CC","joy"],
-	["0033FF","joy"],
-	["006600","anger"],
-	["006633","anger"],
-	["006666","sadness"],
-	["006699","sadness"],
-	["0066CC","joy"],
-	["0066FF","joy"],
-	["009900","joy"],
-	["009933","joy"],
-	["009966","joy"],
-	["009999","joy"],
-	["0099CC","joy"],
-	["0099FF","joy"],
-	["00CC00","joy"],
-	["00CC33","joy"],
-	["00CC66","joy"],
-	["00CC99","joy"],
-	["00CCCC","joy"],
-	["00CCFF","joy"],
-	["00FF00","joy"],
-	["00FF33","joy"],
-	["00FF66","joy"],
-	["00FF99","joy"],
-	["00FFCC","joy"],
-	["00FFFF","joy"],
-	["330000","anger"],
-	["330033","sad"],
-	["330066","sad"],
-	["330099","sad"],
-	["3300CC","sad"],
-	["3300FF","joy"],
-	["333300","anger"],
-	["333333","sad"],
-	["333366","sad"],
-	["333399","sad"],
-	["3333CC","sad"],
-	["3333FF","joy"],
-	["336600","anger"],
-	["336633","anger"],
-	["336666","sad"],
-	["336699","sad"],
-	["3366CC","sad"],
-	["3366FF","sad"],
-	["339900","anger"],
-	["339933","anger"],
-	["339966","sad"],
-	["339999","sad"],
-	["3399CC","sad"],
-	["3399FF","sad"],
-	["33CC00","joy"],
-	["33CC33","joy"],
-	["33CC66","joy"],
-	["33CC99","joy"],
-	["33CCCC","joy"],
-	["33CCFF","joy"],
-	["33FF00","joy"],
-	["33FF33","joy"],
-	["33FF66","joy"],
-	["33FF99","joy"],
-	["33FFCC","joy"],
-	["33FFFF","joy"],
-	["660000","anger"],
-	["660033","anger"],
-	["660066","anger"],
-	["660099","anger"],
-	["6600CC","sad"],
-	["6600FF","sad"],
-	["663300","sad"],
-	["663333","sad"],
-	["663366","sad"],
-	["663399","sad"],
-	["6633CC","love"],
-	["6633FF","sad"],
-	["666600","fear"],
-	["666633","fear"],
-	["666666","sad"],
-	["666699","sad"],
-	["6666CC","sad"],
-	["6666FF","sad"],
-	["669900","anger"],
-	["669933","anger"],
-	["669966","sad"],
-	["669999","sad"],
-	["6699CC","sad"],
-	["6699FF","joy"],
-	["66CC00","joy"],
-	["66CC33","joy"],
-	["66CC66","joy"],
-	["66CC99","joy"],
-	["66CCCC","joy"],
-	["66CCFF","joy"],
-	["66FF00","joy"],
-	["66FF33","joy"],
-	["66FF66","joy"],
-	["66FF99","joy"],
-	["66FFCC","joy"],
-	["66FFFF","joy"],
-	["990000","anger"],
-	["990033","anger"],
-	["990066","love"],
-	["990099","love"],
-	["9900CC","joy"],
-	["9900FF","joy"],
-	["993300","anger"],
-	["993333","anger"],
-	["993366","love"],
-	["993399","love"],
-	["9933CC","joy"],
-	["9933FF","joy"],
-	["996600","fear"],
-	["996633","fear"],
-	["996666","sad"],
-	["996699","sad"],
-	["9966CC","joy"],
-	["9966FF","joy"],
-	["999900","sad"],
-	["999933","sad"],
-	["999966","fear"],
-	["999999","sad"],
-	["9999CC","sad"],
-	["9999FF","sad"],
-	["99CC00","anger"],
-	["99CC33","anger"],
-	["99CC66","sad"],
-	["99CC99","sad"],
-	["99CCCC","sad"],
-	["99CCFF","joy"],
-	["99FF00","joy"],
-	["99FF33","joy"],
-	["99FF66","joy"],
-	["99FF99","joy"],
-	["99FFCC","joy"],
-	["99FFFF","joy"],
-	["CC0000","anger"],
-	["CC0033","anger"],
-	["CC0066","love"],
-	["CC0099","love"],
-	["CC00CC","love"],
-	["CC00FF","surprise"],
-	["CC3300","anger"],
-	["CC3333","anger"],
-	["CC3366","love"],
-	["CC3399","love"],
-	["CC33CC","love"],
-	["CC33FF","surprise"],
-	["CC6600","fear"],
-	["CC6633","fear"],
-	["CC6666","sad"],
-	["CC6699","love"],
-	["CC66CC","love"],
-	["CC66FF","love"],
-	["CC9900","sad"],
-	["CC9933","sad"],
-	["CC9966","sad"],
-	["CC9999","sad"],
-	["CC99CC","love"],
-	["CC99FF","love"],
-	["CCCC00","sad"],
-	["CCCC33","sad"],
-	["CCCC66","sad"],
-	["CCCC99","sad"],
-	["CCCCCC","sad"],
-	["CCCCFF","sad"],
-	["CCFF00","surprise"],
-	["CCFF33","surprise"],
-	["CCFF66","joy"],
-	["CCFF99","joy"],
-	["CCFFCC","joy"],
-	["CCFFFF","joy"],
-	["FF0000","surprise"],
-	["FF0033","surprise"],
-	["FF0066","love"],
-	["FF0099","love"],
-	["FF00CC","love"],
-	["FF00FF","love"],
-	["FF3300","love"],
-	["FF3333","love"],
-	["FF3366","love"],
-	["FF3399","love"],
-	["FF33CC","love"],
-	["FF33FF","love"],
-	["FF6600","joy"],
-	["FF6633","joy"],
-	["FF6666","joy"],
-	["FF6699","love"],
-	["FF66CC","love"],
-	["FF66FF","love"],
-	["FF9900","love"],
-	["FF9933","joy"],
-	["FF9966","joy"],
-	["FF9999","love"],
-	["FF99CC","love"],
-	["FF99FF","love"],
-	["FFCC00","joy"],
-	["FFCC33","joy"],
-	["FFCC66","joy"],
-	["FFCC99","joy"],
-	["FFCCCC","love"],
-	["FFCCFF","love"],
-	["FFFF00","surprise"],
-	["FFFF33","joy"],
-	["FFFF66","joy"],
-	["FFFF99","joy"],
-	["FFFFCC","joy"],
-	["FFFFFF","joy"]
+			['000000', 'fear'],
+	   	   ['000033', 'fear'],
+	   	   ['000066', 'sadness'],
+	   	   ['000099', 'sadness'],
+	   	   ['0000CC', 'trust'],
+	   	   ['0000FF', 'trust'],
+	   	   ['003300', 'fear'],
+	   	   ['003333', 'fear'],
+	   	   ['003366', 'sadness'],
+	   	   ['003399', 'sadness'],
+	   	   ['0033CC', 'trust'],
+	   	   ['0033FF', 'trust'],
+	   	   ['006600', 'anger'],
+	   	   ['006633', 'anger'],
+	   	   ['006666', 'sadness'],
+	   	   ['006699', 'sadness'],
+	   	   ['0066CC', 'trust'],
+	   	   ['0066FF', 'trust'],
+	   	   ['009900', 'joy'],
+	   	   ['009933', 'joy'],
+	   	   ['009966', 'joy'],
+	   	   ['009999', 'joy'],
+	   	   ['0099CC', 'joy'],
+	   	   ['0099FF', 'joy'],
+	   	   ['00CC00', 'joy'],
+	   	   ['00CC33', 'joy'],
+	   	   ['00CC66', 'joy'],
+	   	   ['00CC99', 'joy'],
+	   	   ['00CCCC', 'joy'],
+	   	   ['00CCFF', 'joy'],
+	   	   ['00FF00', 'joy'],
+	   	   ['00FF33', 'joy'],
+	   	   ['00FF66', 'joy'],
+	   	   ['00FF99', 'joy'],
+	   	   ['00FFCC', 'joy'],
+	   	   ['00FFFF', 'joy'],
+	   	   ['330000', 'fear'],
+	   	   ['330033', 'fear'],
+	   	   ['330066', 'fear'],
+	   	   ['330099', 'trust'],
+	   	   ['3300CC', 'trust'],
+	   	   ['3300FF', 'trust'],
+	   	   ['333300', 'disgust'],
+	   	   ['333333', 'sadness'],
+	   	   ['333366', 'sadness'],
+	   	   ['333399', 'trust'],
+	   	   ['3333CC', 'trust'],
+	   	   ['3333FF', 'trust'],
+	   	   ['336600', 'disgust'],
+	   	   ['336633', 'disgust'],
+	   	   ['336666', 'sadness'],
+	   	   ['336699', 'sadness'],
+	   	   ['3366CC', 'sadness'],
+	   	   ['3366FF', 'joy'],
+	   	   ['339900', 'joy'],
+	   	   ['339933', 'joy'],
+	   	   ['339966', 'joy'],
+	   	   ['339999', 'sadness'],
+	   	   ['3399CC', 'sadness'],
+	   	   ['3399FF', 'sadness'],
+	   	   ['33CC00', 'joy'],
+	   	   ['33CC33', 'joy'],
+	   	   ['33CC66', 'joy'],
+	   	   ['33CC99', 'joy'],
+	   	   ['33CCCC', 'joy'],
+	   	   ['33CCFF', 'joy'],
+	   	   ['33FF00', 'anticipation'],
+	   	   ['33FF33', 'joy'],
+	   	   ['33FF66', 'joy'],
+	   	   ['33FF99', 'joy'],
+	   	   ['33FFCC', 'joy'],
+	   	   ['33FFFF', 'joy'],
+	   	   ['660000', 'anger'],
+	   	   ['660033', 'anger'],
+	   	   ['660066', 'anger'],
+	   	   ['660099', 'joy'],
+	   	   ['6600CC', 'fear'],
+	   	   ['6600FF', 'fear'],
+	   	   ['663300', 'anger'],
+	   	   ['663333', 'anger'],
+	   	   ['663366', 'disgust'],
+	   	   ['663399', 'fear'],
+	   	   ['6633CC', 'joy'],
+	   	   ['6633FF', 'joy'],
+	   	   ['666600', 'disgust'],
+	   	   ['666633', 'disgust'],
+	   	   ['666666', 'sadness'],
+	   	   ['666699', 'fear'],
+	   	   ['6666CC', 'sadness'],
+	   	   ['6666FF', 'joy'],
+	   	   ['669900', 'disgust'],
+	   	   ['669933', 'disgust'],
+	   	   ['669966', 'disgust'],
+	   	   ['669999', 'disgust'],
+	   	   ['6699CC', 'sadness'],
+	   	   ['6699FF', 'joy'],
+	   	   ['66CC00', 'joy'],
+	   	   ['66CC33', 'joy'],
+	   	   ['66CC66', 'joy'],
+	   	   ['66CC99', 'joy'],
+	   	   ['66CCCC', 'joy'],
+	   	   ['66CCFF', 'joy'],
+	   	   ['66FF00', 'anticipation'],
+	   	   ['66FF33', 'anticipation'],
+	   	   ['66FF66', 'anticipation'],
+	   	   ['66FF99', 'joy'],
+	   	   ['66FFCC', 'joy'],
+	   	   ['66FFFF', 'joy'],
+	   	   ['990000', 'anger'],
+	   	   ['990033', 'anger'],
+	   	   ['990066', 'anger'],
+	   	   ['990099', 'fear'],
+	   	   ['9900CC', 'joy'],
+	   	   ['9900FF', 'joy'],
+	   	   ['993300', 'anger'],
+	   	   ['993333', 'anger'],
+	   	   ['993366', 'fear'],
+	   	   ['993399', 'joy'],
+	   	   ['9933CC', 'fear'],
+	   	   ['9933FF', 'joy'],
+	   	   ['996600', 'disgust'],
+	   	   ['996633', 'disgust'],
+	   	   ['996666', 'disgust'],
+	   	   ['996699', 'sadness'],
+	   	   ['9966CC', 'fear'],
+	   	   ['9966FF', 'joy'],
+	   	   ['999900', 'disgust'],
+	   	   ['999933', 'disgust'],
+	   	   ['999966', 'disgust'],
+	   	   ['999999', 'sadness'],
+	   	   ['9999CC', 'sadness'],
+	   	   ['9999FF', 'sadness'],
+	   	   ['99CC00', 'disguest'],
+	   	   ['99CC33', 'disgust'],
+	   	   ['99CC66', 'sadness'],
+	   	   ['99CC99', 'sadness'],
+	   	   ['99CCCC', 'sadness'],
+	   	   ['99CCFF', 'joy'],
+	   	   ['99FF00', 'joy'],
+	   	   ['99FF33', 'joy'],
+	   	   ['99FF66', 'joy'],
+	   	   ['99FF99', 'joy'],
+	   	   ['99FFCC', 'joy'],
+	   	   ['99FFFF', 'joy'],
+	   	   ['CC0000', 'anger'],
+	   	   ['CC0033', 'anger'],
+	   	   ['CC0066', 'sadness'],
+	   	   ['CC0099', 'joy'],
+	   	   ['CC00CC', 'joy'],
+	   	   ['CC00FF', 'joy'],
+	   	   ['CC3300', 'anger'],
+	   	   ['CC3333', 'anger'],
+	   	   ['CC3366', 'joy'],
+	   	   ['CC3399', 'joy'],
+	   	   ['CC33CC', 'joy'],
+	   	   ['CC33FF', 'joy'],
+	   	   ['CC6600', 'disgust'],
+	   	   ['CC6633', 'disgust'],
+	   	   ['CC6666', 'sadness'],
+	   	   ['CC6699', 'disgust'],
+	   	   ['CC66CC', 'joy'],
+	   	   ['CC66FF', 'joy'],
+	   	   ['CC9900', 'sadness'],
+	   	   ['CC9933', 'sadness'],
+	   	   ['CC9966', 'sadness'],
+	   	   ['CC9999', 'sadness'],
+	   	   ['CC99CC', 'sadness'],
+	   	   ['CC99FF', 'joy'],
+	   	   ['CCCC00', 'sadness'],
+	   	   ['CCCC33', 'sadness'],
+	   	   ['CCCC66', 'sadness'],
+	   	   ['CCCC99', 'sadness'],
+	   	   ['CCCCCC', 'sadness'],
+	   	   ['CCCCFF', 'sadness'],
+	   	   ['CCFF00', 'surprise'],
+	   	   ['CCFF33', 'surprise'],
+	   	   ['CCFF66', 'joy'],
+	   	   ['CCFF99', 'joy'],
+	   	   ['CCFFCC', 'joy'],
+	   	   ['CCFFFF', 'joy'],
+	   	   ['FF0000', 'surprise'],
+	   	   ['FF0033', 'surprise'],
+	   	   ['FF0066', 'love'],
+	   	   ['FF0099', 'joy'],
+	   	   ['FF00CC', 'joy'],
+	   	   ['FF00FF', 'joy'],
+	   	   ['FF3300', 'surprise'],
+	   	   ['FF3333', 'joy'],
+	   	   ['FF3366', 'joy'],
+	   	   ['FF3399', 'joy'],
+	   	   ['FF33CC', 'joy'],
+	   	   ['FF33FF', 'joy'],
+	   	   ['FF6600', 'anticipation'],
+	   	   ['FF6633', 'anticipation'],
+	   	   ['FF6666', 'joy'],
+	   	   ['FF6699', 'joy'],
+	   	   ['FF66CC', 'joy'],
+	   	   ['FF66FF', 'joy'],
+	   	   ['FF9900', 'anticipation'],
+	   	   ['FF9933', 'anticipation'],
+	   	   ['FF9966', 'anticipation'],
+	   	   ['FF9999', 'joy'],
+	   	   ['FF99CC', 'joy'],
+	   	   ['FF99FF', 'joy'],
+	   	   ['FFCC00', 'anticipation'],
+	   	   ['FFCC33', 'anticipation'],
+	   	   ['FFCC66', 'joy'],
+	   	   ['FFCC99', 'joy'],
+	   	   ['FFCCCC', 'joy'],
+	   	   ['FFCCFF', 'joy'],
+	   	   ['FFFF00', 'surprise'],
+	   	   ['FFFF33', 'surprise'],
+	   	   ['FFFF66', 'joy'],
+	   	   ['FFFF99', 'joy'],
+	   	   ['FFFFCC', 'joy'],
+	   	   ['FFFFFF', 'joy']
 	]
 }
 
@@ -576,6 +597,11 @@ ntc.init();
 	//=========================================turn RGB into websafe================================
 	var style;
 	var audio;
+	var time;
+/*	function timeUpdate(){
+		console.log("Maybe:");
+	}
+	$('#player').bind('timeupdate', timeUpdate());*/
 	function getSongs(mood) {
 		//alert(mood);
 		//mood = 'happy';
@@ -598,13 +624,27 @@ ntc.init();
 					var minute = Math.round(minutes);
 					var second = Math.round(100*seconds)/100;
 					var time = minute+second;
-					alert(time);
-				},600);
-				setInterval(function () { //this will be the countdown function maybe
-
-				}, 1000);
+				},1000);
+				/*setInterval(function () { //this will be the countdown function maybe
+					    var timeleft = document.getElementById('timeleft'),
+					        duration = parseInt( audio.duration ),
+					        currentTime = parseInt( audio.currentTime ),
+					        timeLeft = duration - currentTime,
+					        s, m;
+					    console.log('timeupdate');
+					    
+					    
+					    s = timeLeft % 60;
+					    m = Math.floor( timeLeft / 60 ) % 60;
+					    
+					    s = s < 10 ? "0"+s : s;
+					    m = m < 10 ? "0"+m : m;
+					    
+					    timeleft.innerHTML = m+":"+s;
+					    
+					}, 1000);*/
 				$('#player').on('ended', function() { //this makes the next song come
-					getSongs(mood);
+					getSongs(emoCombo1);
 				});
 			}
 		});
@@ -642,19 +682,29 @@ ntc.init();
 	var r3 = superDuperRoundingMagicMachine(thirdcolorR);
 	var g3 = superDuperRoundingMagicMachine(thirdcolorG);
 	var b3 = superDuperRoundingMagicMachine(thirdcolorB);
-//==============================================================================================
-function componentToHex(c) {
-	var hex = c.toString(16);
-	return hex.length == 1 ? "0" + hex : hex;
-}
 
-function rgbToHex(r, g, b) {
-	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}   
+	var r4 = superDuperRoundingMagicMachine(fourthcolorR);
+	var g4 = superDuperRoundingMagicMachine(fourthcolorG);
+	var b4 = superDuperRoundingMagicMachine(fourthcolorB);
+
+	var r5 = superDuperRoundingMagicMachine(fifthcolorR);
+	var g5 = superDuperRoundingMagicMachine(fifthcolorG);
+	var b5 = superDuperRoundingMagicMachine(fifthcolorB);
+//==============================================================================================
+	function componentToHex(c) {
+		var hex = c.toString(16);
+		return hex.length == 1 ? "0" + hex : hex;
+	}
+
+	function rgbToHex(r, g, b) {
+		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+	}   
 	    //alert(r + "  " + g + " " + b);
 	    var hexcolor = rgbToHex(r,g,b);
 	    var hexcolor2 = rgbToHex(r2,g2,b2);
 	    var hexcolor3 = rgbToHex(r3,g3,b3);
+	    var hexcolor4 = rgbToHex(r4,g4,b4);
+	    var hexcolor5 = rgbToHex(r5,g5,b5);
 
 	    var n_match  = ntc.name(hexcolor);
 	        n_rgb        = n_match[0]; // This is the RGB value of the closest matching color
@@ -662,14 +712,7 @@ function rgbToHex(r, g, b) {
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
 
-	        var colorPalette = 
-	        "<h2>Color Palette</h2>"+
-	        "<h1>"+ moodName +"</h1>"+
-	        "<div id='colorsInHere'>"+
-	        "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
-	        "</div>";
-
-	        var n_match2  = ntc.name(hexcolor2);
+	var n_match2  = ntc.name(hexcolor2);
 		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
 		    n_name2       = n_match2[1]; // This is the text string for the name of the match
 		    n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
@@ -686,9 +729,9 @@ function rgbToHex(r, g, b) {
 	    	var mood3;
 	    	var moodName3;
 
-	    	var e1 = "trust";
-	    	var e2 = "anger";
-	    	var e3 = "sadness";
+	    	var e1 = n_name;
+	    	var e2 = n_name2;
+	    	var e3 = n_name3;
 	    	var emotionCombo = [
 	    	["null","trust","fear","surprise","sadness","disgust","anger","anticipation","joy"],
 	    	["trust","trust","submission","curiosity","sentimentality","conflict","dominance","fatalism","love"],
@@ -752,28 +795,29 @@ function rgbToHex(r, g, b) {
 	    "<h2>Color Palette</h2>"+
 	    "<h1>"+emoCombo1+"</h1>"+
 	    "<div id='colorsInHere'>"+
-	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
+	    "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
 	    "</div>";
 
 	//alert("Mood # is: "+ mood);
 	//$.get( "php/undertone.php", { themood: mood } )
 	//.done(function( data ) {
 	//alert( "Data Loaded: " + data );
-	getSongs(emoCombo1);
-	$('#stuffhere').html(style);
-	$('#colorPalette').html(colorPalette);
-	$(".swatches:first-child").css("background-color",hexcolor);
-	$(".swatches:nth-child(2)").css("background-color",hexcolor2);
-	$(".swatches:nth-child(3)").css("background-color",hexcolor3);
+	        getSongs(emoCombo1);
+	        $('#stuffhere').html(style);
+	        $('#colorPalette').html(colorPalette);
+	        $(".swatches:first-child").css("background-color",hexcolor);
+	        $(".swatches:nth-child(2)").css("background-color",hexcolor2);
+	        $(".swatches:nth-child(3)").css("background-color",hexcolor3);
+	        $(".swatches:nth-child(4)").css("background-color",hexcolor4);
+	        $(".swatches:nth-child(5)").css("background-color",hexcolor5);
 
 	        //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
 			// });
 };
 
 	    //};//);
-$("#camera").click(function(){
-	var sayCheese = new SayCheese('#webcam', { snapshots: true });
-	$('.imgOption').hide();
+$("#openWebcam").click(function(){
+	var sayCheese = new SayCheese('#container-element', { snapshots: true });
 	$("#capture").delay(800).fadeIn(1);
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
@@ -789,31 +833,19 @@ $("#camera").click(function(){
 
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
-		var preview = $(template);
+
 		$(img).on('load', function() {
 			$('#say-cheese-snapshots').prepend(img);
-			var colorThief = new ColorThief();
-			paletteArray = colorThief.getPalette(img, 4);
-			colorToMood();
-			$('#stuffhere').show();
-			$('#colorPalette').show();
-			$('.imgOption').show();
-			$("#webcam").hide();
-
 		});
 		img.src = snapshot.toDataURL('image/png');
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
-		//$.data(File,preview);
-		//alert(File);
-		
 	});
 
 	sayCheese.start();
-	$("#capture").click(function(img){
+	$("#capture").click(function(){
 		sayCheese.takeSnapshot();
-		
 	});
 });
 
