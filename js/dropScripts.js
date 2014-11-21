@@ -803,6 +803,24 @@ $("#camera").click(function(){
 		playPause();
 	});
 
+	music.addEventListener('timeupdate',function(){
+	    var currentTime = Math.round(music.currentTime);
+	    var min = Math.floor(currentTime/60);
+	    var second = Math.round(currentTime % 60);
+	    var sec;
+	    if(second<10){ sec = "0"+second }
+	    	else { sec = second; }
+	    console.log(min+":"+sec);
+	    $('.timestamp').html(min+":"+sec);
+	    /*if(currentTime<10){
+		    $('.timestamp').html("0:0"+currentTime);
+		} else if(currentTime<60 && currentTime >= 10){
+			$('.timestamp').html("0:"+currentTime);
+		} else if(currentTime>=60){
+			$('.timestamp').html("0:"+currentTime-60);
+		}*/
+	},false);
+
 	//Makes timeline clickable
 	timeline.addEventListener("click", function (event) {
 		moveplayhead(event);
