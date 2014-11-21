@@ -48,9 +48,6 @@ $(function(){
 		    }
 		});
 
-
-
-
         dropbox.filedrop({
 	    	// The name of the $_FILES entry:
 	    	paramname:'pic',
