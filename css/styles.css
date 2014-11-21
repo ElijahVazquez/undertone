@@ -288,7 +288,20 @@ input.hidden {
 	max-width: 640px;
 	max-width: 40rem;
 }
-
+#capture{
+	color: #fff;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	padding: 12px 32px;
+	padding: .75rem 2rem;
+	border-radius: 5px;
+	background: rgba(159,38,78,1);
+	border: none;
+	text-transform: uppercase;
+	font-weight: 600;
+	cursor: pointer;
+}
 /* - - - - - - - - - - - - the following is code for the '2nd' page - - - - - - - - - - */
 #lifeForce{
 	max-width: 960px;
