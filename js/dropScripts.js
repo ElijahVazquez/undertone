@@ -17,22 +17,22 @@ $(function(){
 
 	var dragTimer;
 	$(document).on('dragover', function(e) {
-	    var dt = e.originalEvent.dataTransfer;
-	    console.log('1');
-	    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
-	        $('.imgOption').fadeOut(200, function(){
-	        	$('.imgOptionWide').fadeIn(200);
-	        });
-	        window.clearTimeout(dragTimer);
-	    }
+		var dt = e.originalEvent.dataTransfer;
+		console.log('1');
+		if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
+			$('.imgOption').fadeOut(200, function(){
+				$('.imgOptionWide').fadeIn(200);
+			});
+			window.clearTimeout(dragTimer);
+		}
 	});
 	$(document).on('dragleave', function(e) {
 		console.log('2');
-	    dragTimer = window.setTimeout(function() {
-	        $('.imgOptionWide').fadeOut(200, function(){
-	        	$('.imgOption').fadeIn(200);
-	        });
-	    }, 100);
+		dragTimer = window.setTimeout(function() {
+			$('.imgOptionWide').fadeOut(200, function(){
+				$('.imgOption').fadeIn(200);
+			});
+		}, 100);
 	});
 
 	$('.imgOptionWide').on('dragover', function(){
@@ -47,121 +47,37 @@ $(function(){
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
-<<<<<<< HEAD
 
 
 	$('#click-image-upload').change(function(Files){
-	    alert("in");
+		alert("in");
 	    var theImg;// = new Image;
 	    var file = this.files[0];
 	    createImage(file);
 	    $('#stuffhere').show();
 	    $('#colorPalette').show();
-
-        var isDragging = false;
-        $(document)
-        .mousedown(function() {
-        	$(window).mousemove(function() {
-        		isDragging = true;
-        		$(window).unbind("mousemove");
-        		$('.imgOption').hide();
-        	});
-        })
-        .mouseup(function() {
-        	var wasDragging = isDragging;
-        	isDragging = false;
-        	$(window).unbind("mousemove");
+	    var isDragging = false;
+	    $(document)
+	    .mousedown(function() {
+	    	$(window).mousemove(function() {
+	    		isDragging = true;
+	    		$(window).unbind("mousemove");
+	    		$('.imgOption').hide();
+	    	});
+	    })
+	    .mouseup(function() {
+	    	var wasDragging = isDragging;
+	    	isDragging = false;
+	    	$(window).unbind("mousemove");
 		    if (!wasDragging) { //was clicking
 		    }
 		    if(wasDragging) {  //drag is over
 		    	$('.imgOption').show();
 		    }
 		});
+	});
 
-
-
-
-        dropbox.filedrop({
-=======
-	
-	/*$('#click-image-upload').change(function(){
-	    alert("in");
-	    var theImg;
-	    //console.log(this.files[0]);
-	    if (this.files && this.files[0]) {
-	        var reader = new FileReader();
-	        
-	        reader.onload = function (e) {
-	            theImg = e.target.result;
-	            dropbox.append("<img src="+theImg+" />");
-            }        
-            reader.readAsDataURL(this.files[0]);
-	    }
-
-	    dropbox.filedrop({
->>>>>>> FETCH_HEAD
-	    	// The name of the $_FILES entry:
-	    	paramname:'pic',
-	    	
-	    	maxfiles: 5,
-	    	maxfilesize: 3,
-	    	url: 'php/post_file.php',
-	    	
-	    	uploadFinished:function(i,file,response){
-	    		$.data(file).addClass('done');
-	    		// response is the JSON object that post_file.php returns
-	    	},
-	    	
-	    	error: function(err, file) {
-	    		switch(err) {
-	    			case 'BrowserNotSupported':
-	    			showMessage('Your browser does not support HTML5 file uploads!');
-	    			break;
-	    			case 'TooManyFiles':
-	    			alert('Too many files! Please select 5 at most!');
-	    			break;
-	    			case 'FileTooLarge':
-	    			alert(file.name+' is too large! Please upload files smaller than 3mb.');
-	    			break;
-	    			default:
-	    			break;
-	    		}
-	    	},
-	    	
-	    	// Called before each upload is started
-	    	beforeEach: function(file){
-	    		if(!file.type.match(/^image\//)){
-	    			alert('Only images are allowed!');
-	    			
-	    			// Returning false will cause the
-	    			// file to be rejected
-	    			return false;
-	    		}
-	    	},
-	    	
-	    	uploadStarted:function(i, file, len){
-	    		console.log('upload started');
-	    		createImage(file);
-	    		//$("header").hide();
-	    		//$("#mainBody").hide();
-	    		//$("#hideMe").show();
-	    		$('#stuffhere').show();
-	    		$('#colorPalette').show();
-
-	    	},
-	    	
-	    	//progressUpdated: function(i, file, progress) {
-	    	//	$.data(file).find('.progress').width(progress);
-	    	//}
-
-	    });
-<<<<<<< HEAD
-});
-=======
-	});*/
->>>>>>> FETCH_HEAD
-
-dropbox.filedrop({
+	dropbox.filedrop({
 		// The name of the $_FILES entry:
 		paramname:'pic',
 		
@@ -176,7 +92,7 @@ dropbox.filedrop({
 		uploadFinished:function(i,file,response){
 			$('.loader').fadeOut(function(){
 				$('html,body').animate({
-				    scrollTop: $('#lifeForce').offset().top
+					scrollTop: $('#lifeForce').offset().top
 				}, 1000);
 				return false;
 			});
@@ -204,7 +120,6 @@ dropbox.filedrop({
 		beforeEach: function(file){
 			if(!file.type.match(/^image\//)){
 				alert('Only images are allowed!');
-				
 				// Returning false will cause the
 				// file to be rejected
 				return false;
@@ -229,19 +144,15 @@ dropbox.filedrop({
 
 
 function createImage(file){
-
-	var preview = $(template), 
+	var preview = $(template); 
 	image = $('img', preview);
-
 	var reader = new FileReader();
-
 	image.width = 100;
 	image.height = 100;
-
 	reader.onload = function(e){
 			// e.target.result holds the DataURL which can be used as a source of the image:
-			if(counter == 1){
-				image.attr('src',e.target.result);
+		if(counter == 1){
+			image.attr('src',e.target.result);
 			//alert("init image set");
 			counter++;
 		}
@@ -261,27 +172,27 @@ function createImage(file){
 
 		// Reading the file as a DataURL. When finished,
 		// this will trigger the onload function above:
-		reader.readAsDataURL(file);
+	reader.readAsDataURL(file);
 		// message.hide(); THIS hides the text inside the drop area.
 
-		if(counter == 0){
-			preview.appendTo(mainBody);
-			counter++;
-			//alert("counter increase");
-		}
+	if(counter == 0){
+		preview.appendTo(mainBody);
+		counter++;
+		//alert("counter increase");
+	}
 		
 		
 		// Associating a preview container
 		// with the file, using jQuery's $.data():
 		
-		$.data(file,preview);
+	$.data(file,preview);
 		//alert(file);
 
 };
 
 	function showMessage(msg){
 		message.html(msg);
-	}
+	};
 
 	$(window).scroll(function() {
 		var windowHeight = $(window).scrollTop();
@@ -295,13 +206,11 @@ function createImage(file){
 	//$(document).ready(function(){
 
 		function colorToMood(){
-
 			if(paletteArray != null){
 				firstcolorR = paletteArray[0][0];
 				firstcolorG = paletteArray[0][1];
 				firstcolorB = paletteArray[0][2];
 
-<<<<<<< HEAD
 				secondcolorR = paletteArray[1][0];
 				secondcolorG = paletteArray[1][1];
 				secondcolorB = paletteArray[1][2];
@@ -309,21 +218,20 @@ function createImage(file){
 				thirdcolorR = paletteArray[2][0];
 				thirdcolorG = paletteArray[2][1];
 				thirdcolorB = paletteArray[2][2];
+
+				thirdcolorR = paletteArray[2][0];
+				thirdcolorG = paletteArray[2][1];
+				thirdcolorB = paletteArray[2][2];
+
+				fourthcolorR = paletteArray[3][0];
+				fourthcolorG = paletteArray[3][1];
+				fourthcolorB = paletteArray[3][2];
+
+				fifthcolorR = paletteArray[4][0];
+				fifthcolorG = paletteArray[4][1];
+				fifthcolorB = paletteArray[4][2];
 			}
-=======
-	    		thirdcolorR = paletteArray[2][0];
-	    		thirdcolorG = paletteArray[2][1];
-	    		thirdcolorB = paletteArray[2][2];
-
-	    		fourthcolorR = paletteArray[3][0];
-	    		fourthcolorG = paletteArray[3][1];
-	    		fourthcolorB = paletteArray[3][2];
-
-	    		fifthcolorR = paletteArray[4][0];
-	    		fifthcolorG = paletteArray[4][1];
-	    		fifthcolorB = paletteArray[4][2];
-	    	}
->>>>>>> FETCH_HEAD
+		};
 	        /*for(i=0; i<paletteArray.length; i++){
 	           var ? = paletteArray[i]
 	       }*/
@@ -347,24 +255,25 @@ function createImage(file){
 
 		init: function() {
 			var color, rgb, hsl;
-			for(var i = 0; i < ntc.names.length; i++)
-			{
+			for(var i = 0; i < ntc.names.length; i++){
 				color = "#" + ntc.names[i][0];
 				rgb = ntc.rgb(color);
 				hsl = ntc.hsl(color);
 				ntc.names[i].push(rgb[0], rgb[1], rgb[2], hsl[0], hsl[1], hsl[2]);
 			}
 		},
-
 		name: function(color) {
 
 			color = color.toUpperCase();
-			if(color.length < 3 || color.length > 7)
+			if(color.length < 3 || color.length > 7){
 				return ["#000000", "Invalid Color: " + color, false];
-			if(color.length % 3 == 0)
+			}
+			if(color.length % 3 == 0){
 				color = "#" + color;
-			if(color.length == 4)
+			}
+			if(color.length == 4){
 				color = "#" + color.substr(1, 1) + color.substr(1, 1) + color.substr(2, 1) + color.substr(2, 1) + color.substr(3, 1) + color.substr(3, 1);
+			}
 
 			var rgb = ntc.rgb(color);
 			var r = rgb[0], g = rgb[1], b = rgb[2];
@@ -373,16 +282,15 @@ function createImage(file){
 			var ndf1 = 0; ndf2 = 0; ndf = 0;
 			var cl = -1, df = -1;
 
-			for(var i = 0; i < ntc.names.length; i++)
-			{
-				if(color == "#" + ntc.names[i][0])
+			for(var i = 0; i < ntc.names.length; i++){
+				if(color == "#" + ntc.names[i][0]){
 					return ["#" + ntc.names[i][0], ntc.names[i][1], true];
+				}
 
 				ndf1 = Math.pow(r - ntc.names[i][2], 2) + Math.pow(g - ntc.names[i][3], 2) + Math.pow(b - ntc.names[i][4], 2);
 				ndf2 = Math.pow(h - ntc.names[i][5], 2) + Math.pow(s - ntc.names[i][6], 2) + Math.pow(l - ntc.names[i][7], 2);
 				ndf = ndf1 + ndf2 * 2;
-				if(df < 0 || df > ndf)
-				{
+				if(df < 0 || df > ndf){
 					df = ndf;
 					cl = i;
 				}
@@ -390,261 +298,254 @@ function createImage(file){
 
 			return (cl < 0 ? ["#000000", "Invalid Color: " + color, false] : ["#" + ntc.names[cl][0], ntc.names[cl][1], false]);
 		},
+		hsl: function (color) {
+			var rgb = [parseInt('0x' + color.substring(1, 3)) / 255, parseInt('0x' + color.substring(3, 5)) / 255, parseInt('0x' + color.substring(5, 7)) / 255];
+			var min, max, delta, h, s, l;
+			var r = rgb[0], g = rgb[1], b = rgb[2];
 
-	          // adopted from: Farbtastic 1.2
-	          // http://acko.net/dev/farbtastic
-	          hsl: function (color) {
+			min = Math.min(r, Math.min(g, b));
+			max = Math.max(r, Math.max(g, b));
+			delta = max - min;
+			l = (min + max) / 2;
 
-	          	var rgb = [parseInt('0x' + color.substring(1, 3)) / 255, parseInt('0x' + color.substring(3, 5)) / 255, parseInt('0x' + color.substring(5, 7)) / 255];
-	          	var min, max, delta, h, s, l;
-	          	var r = rgb[0], g = rgb[1], b = rgb[2];
-
-	          	min = Math.min(r, Math.min(g, b));
-	          	max = Math.max(r, Math.max(g, b));
-	          	delta = max - min;
-	          	l = (min + max) / 2;
-
-	          	s = 0;
-	          	if(l > 0 && l < 1)
-	          		s = delta / (l < 0.5 ? (2 * l) : (2 - 2 * l));
-
-	          	h = 0;
-	          	if(delta > 0)
-	          	{
-	          		if (max == r && max != g) h += (g - b) / delta;
-	          		if (max == g && max != b) h += (2 + (b - r) / delta);
-	          		if (max == b && max != r) h += (4 + (r - g) / delta);
-	          		h /= 6;
-	          	}
-	          	return [parseInt(h * 255), parseInt(s * 255), parseInt(l * 255)];
-	          },
-
-	          // adopted from: Farbtastic 1.2
-	          // http://acko.net/dev/farbtastic
-	          rgb: function(color) {
-	          	return [parseInt('0x' + color.substring(1, 3)), parseInt('0x' + color.substring(3, 5)),  parseInt('0x' + color.substring(5, 7))];
-	          },
+			s = 0;
+			if(l > 0 && l < 1){
+				s = delta / (l < 0.5 ? (2 * l) : (2 - 2 * l));
+			}
+			h = 0;
+			if(delta > 0){
+				if (max == r && max != g) h += (g - b) / delta;
+				if (max == g && max != b) h += (2 + (b - r) / delta);
+				if (max == b && max != r) h += (4 + (r - g) / delta);
+				h /= 6;
+			}
+			return [parseInt(h * 255), parseInt(s * 255), parseInt(l * 255)];
+		},
+		rgb: function(color) {	
+			return [parseInt('0x' + color.substring(1, 3)), 
+			parseInt('0x' + color.substring(3, 5)),  
+			parseInt('0x' + color.substring(5, 7))]
+		},
 	//black white grey red green blue yellow pink purple orange 
 
 	names: [
-			['000000', 'fear'],
-	   	   ['000033', 'fear'],
-	   	   ['000066', 'sadness'],
-	   	   ['000099', 'sadness'],
-	   	   ['0000CC', 'trust'],
-	   	   ['0000FF', 'trust'],
-	   	   ['003300', 'fear'],
-	   	   ['003333', 'fear'],
-	   	   ['003366', 'sadness'],
-	   	   ['003399', 'sadness'],
-	   	   ['0033CC', 'trust'],
-	   	   ['0033FF', 'trust'],
-	   	   ['006600', 'anger'],
-	   	   ['006633', 'anger'],
-	   	   ['006666', 'sadness'],
-	   	   ['006699', 'sadness'],
-	   	   ['0066CC', 'trust'],
-	   	   ['0066FF', 'trust'],
-	   	   ['009900', 'joy'],
-	   	   ['009933', 'joy'],
-	   	   ['009966', 'joy'],
-	   	   ['009999', 'joy'],
-	   	   ['0099CC', 'joy'],
-	   	   ['0099FF', 'joy'],
-	   	   ['00CC00', 'joy'],
-	   	   ['00CC33', 'joy'],
-	   	   ['00CC66', 'joy'],
-	   	   ['00CC99', 'joy'],
-	   	   ['00CCCC', 'joy'],
-	   	   ['00CCFF', 'joy'],
-	   	   ['00FF00', 'joy'],
-	   	   ['00FF33', 'joy'],
-	   	   ['00FF66', 'joy'],
-	   	   ['00FF99', 'joy'],
-	   	   ['00FFCC', 'joy'],
-	   	   ['00FFFF', 'joy'],
-	   	   ['330000', 'fear'],
-	   	   ['330033', 'fear'],
-	   	   ['330066', 'fear'],
-	   	   ['330099', 'trust'],
-	   	   ['3300CC', 'trust'],
-	   	   ['3300FF', 'trust'],
-	   	   ['333300', 'disgust'],
-	   	   ['333333', 'sadness'],
-	   	   ['333366', 'sadness'],
-	   	   ['333399', 'trust'],
-	   	   ['3333CC', 'trust'],
-	   	   ['3333FF', 'trust'],
-	   	   ['336600', 'disgust'],
-	   	   ['336633', 'disgust'],
-	   	   ['336666', 'sadness'],
-	   	   ['336699', 'sadness'],
-	   	   ['3366CC', 'sadness'],
-	   	   ['3366FF', 'joy'],
-	   	   ['339900', 'joy'],
-	   	   ['339933', 'joy'],
-	   	   ['339966', 'joy'],
-	   	   ['339999', 'sadness'],
-	   	   ['3399CC', 'sadness'],
-	   	   ['3399FF', 'sadness'],
-	   	   ['33CC00', 'joy'],
-	   	   ['33CC33', 'joy'],
-	   	   ['33CC66', 'joy'],
-	   	   ['33CC99', 'joy'],
-	   	   ['33CCCC', 'joy'],
-	   	   ['33CCFF', 'joy'],
-	   	   ['33FF00', 'anticipation'],
-	   	   ['33FF33', 'joy'],
-	   	   ['33FF66', 'joy'],
-	   	   ['33FF99', 'joy'],
-	   	   ['33FFCC', 'joy'],
-	   	   ['33FFFF', 'joy'],
-	   	   ['660000', 'anger'],
-	   	   ['660033', 'anger'],
-	   	   ['660066', 'anger'],
-	   	   ['660099', 'joy'],
-	   	   ['6600CC', 'fear'],
-	   	   ['6600FF', 'fear'],
-	   	   ['663300', 'anger'],
-	   	   ['663333', 'anger'],
-	   	   ['663366', 'disgust'],
-	   	   ['663399', 'fear'],
-	   	   ['6633CC', 'joy'],
-	   	   ['6633FF', 'joy'],
-	   	   ['666600', 'disgust'],
-	   	   ['666633', 'disgust'],
-	   	   ['666666', 'sadness'],
-	   	   ['666699', 'fear'],
-	   	   ['6666CC', 'sadness'],
-	   	   ['6666FF', 'joy'],
-	   	   ['669900', 'disgust'],
-	   	   ['669933', 'disgust'],
-	   	   ['669966', 'disgust'],
-	   	   ['669999', 'disgust'],
-	   	   ['6699CC', 'sadness'],
-	   	   ['6699FF', 'joy'],
-	   	   ['66CC00', 'joy'],
-	   	   ['66CC33', 'joy'],
-	   	   ['66CC66', 'joy'],
-	   	   ['66CC99', 'joy'],
-	   	   ['66CCCC', 'joy'],
-	   	   ['66CCFF', 'joy'],
-	   	   ['66FF00', 'anticipation'],
-	   	   ['66FF33', 'anticipation'],
-	   	   ['66FF66', 'anticipation'],
-	   	   ['66FF99', 'joy'],
-	   	   ['66FFCC', 'joy'],
-	   	   ['66FFFF', 'joy'],
-	   	   ['990000', 'anger'],
-	   	   ['990033', 'anger'],
-	   	   ['990066', 'anger'],
-	   	   ['990099', 'fear'],
-	   	   ['9900CC', 'joy'],
-	   	   ['9900FF', 'joy'],
-	   	   ['993300', 'anger'],
-	   	   ['993333', 'anger'],
-	   	   ['993366', 'fear'],
-	   	   ['993399', 'joy'],
-	   	   ['9933CC', 'fear'],
-	   	   ['9933FF', 'joy'],
-	   	   ['996600', 'disgust'],
-	   	   ['996633', 'disgust'],
-	   	   ['996666', 'disgust'],
-	   	   ['996699', 'sadness'],
-	   	   ['9966CC', 'fear'],
-	   	   ['9966FF', 'joy'],
-	   	   ['999900', 'disgust'],
-	   	   ['999933', 'disgust'],
-	   	   ['999966', 'disgust'],
-	   	   ['999999', 'sadness'],
-	   	   ['9999CC', 'sadness'],
-	   	   ['9999FF', 'sadness'],
-	   	   ['99CC00', 'disguest'],
-	   	   ['99CC33', 'disgust'],
-	   	   ['99CC66', 'sadness'],
-	   	   ['99CC99', 'sadness'],
-	   	   ['99CCCC', 'sadness'],
-	   	   ['99CCFF', 'joy'],
-	   	   ['99FF00', 'joy'],
-	   	   ['99FF33', 'joy'],
-	   	   ['99FF66', 'joy'],
-	   	   ['99FF99', 'joy'],
-	   	   ['99FFCC', 'joy'],
-	   	   ['99FFFF', 'joy'],
-	   	   ['CC0000', 'anger'],
-	   	   ['CC0033', 'anger'],
-	   	   ['CC0066', 'sadness'],
-	   	   ['CC0099', 'joy'],
-	   	   ['CC00CC', 'joy'],
-	   	   ['CC00FF', 'joy'],
-	   	   ['CC3300', 'anger'],
-	   	   ['CC3333', 'anger'],
-	   	   ['CC3366', 'joy'],
-	   	   ['CC3399', 'joy'],
-	   	   ['CC33CC', 'joy'],
-	   	   ['CC33FF', 'joy'],
-	   	   ['CC6600', 'disgust'],
-	   	   ['CC6633', 'disgust'],
-	   	   ['CC6666', 'sadness'],
-	   	   ['CC6699', 'disgust'],
-	   	   ['CC66CC', 'joy'],
-	   	   ['CC66FF', 'joy'],
-	   	   ['CC9900', 'sadness'],
-	   	   ['CC9933', 'sadness'],
-	   	   ['CC9966', 'sadness'],
-	   	   ['CC9999', 'sadness'],
-	   	   ['CC99CC', 'sadness'],
-	   	   ['CC99FF', 'joy'],
-	   	   ['CCCC00', 'sadness'],
-	   	   ['CCCC33', 'sadness'],
-	   	   ['CCCC66', 'sadness'],
-	   	   ['CCCC99', 'sadness'],
-	   	   ['CCCCCC', 'sadness'],
-	   	   ['CCCCFF', 'sadness'],
-	   	   ['CCFF00', 'surprise'],
-	   	   ['CCFF33', 'surprise'],
-	   	   ['CCFF66', 'joy'],
-	   	   ['CCFF99', 'joy'],
-	   	   ['CCFFCC', 'joy'],
-	   	   ['CCFFFF', 'joy'],
-	   	   ['FF0000', 'surprise'],
-	   	   ['FF0033', 'surprise'],
-	   	   ['FF0066', 'love'],
-	   	   ['FF0099', 'joy'],
-	   	   ['FF00CC', 'joy'],
-	   	   ['FF00FF', 'joy'],
-	   	   ['FF3300', 'surprise'],
-	   	   ['FF3333', 'joy'],
-	   	   ['FF3366', 'joy'],
-	   	   ['FF3399', 'joy'],
-	   	   ['FF33CC', 'joy'],
-	   	   ['FF33FF', 'joy'],
-	   	   ['FF6600', 'anticipation'],
-	   	   ['FF6633', 'anticipation'],
-	   	   ['FF6666', 'joy'],
-	   	   ['FF6699', 'joy'],
-	   	   ['FF66CC', 'joy'],
-	   	   ['FF66FF', 'joy'],
-	   	   ['FF9900', 'anticipation'],
-	   	   ['FF9933', 'anticipation'],
-	   	   ['FF9966', 'anticipation'],
-	   	   ['FF9999', 'joy'],
-	   	   ['FF99CC', 'joy'],
-	   	   ['FF99FF', 'joy'],
-	   	   ['FFCC00', 'anticipation'],
-	   	   ['FFCC33', 'anticipation'],
-	   	   ['FFCC66', 'joy'],
-	   	   ['FFCC99', 'joy'],
-	   	   ['FFCCCC', 'joy'],
-	   	   ['FFCCFF', 'joy'],
-	   	   ['FFFF00', 'surprise'],
-	   	   ['FFFF33', 'surprise'],
-	   	   ['FFFF66', 'joy'],
-	   	   ['FFFF99', 'joy'],
-	   	   ['FFFFCC', 'joy'],
-	   	   ['FFFFFF', 'joy']
-	]
-}
+	['000000', 'fear'],
+	['000033', 'fear'],
+	['000066', 'sadness'],
+	['000099', 'sadness'],
+	['0000CC', 'trust'],
+	['0000FF', 'trust'],
+	['003300', 'fear'],
+	['003333', 'fear'],
+	['003366', 'sadness'],
+	['003399', 'sadness'],
+	['0033CC', 'trust'],
+	['0033FF', 'trust'],
+	['006600', 'anger'],
+	['006633', 'anger'],
+	['006666', 'sadness'],
+	['006699', 'sadness'],
+	['0066CC', 'trust'],
+	['0066FF', 'trust'],
+	['009900', 'joy'],
+	['009933', 'joy'],
+	['009966', 'joy'],
+	['009999', 'joy'],
+	['0099CC', 'joy'],
+	['0099FF', 'joy'],
+	['00CC00', 'joy'],
+	['00CC33', 'joy'],
+	['00CC66', 'joy'],
+	['00CC99', 'joy'],
+	['00CCCC', 'joy'],
+	['00CCFF', 'joy'],
+	['00FF00', 'joy'],
+	['00FF33', 'joy'],
+	['00FF66', 'joy'],
+	['00FF99', 'joy'],
+	['00FFCC', 'joy'],
+	['00FFFF', 'joy'],
+	['330000', 'fear'],
+	['330033', 'fear'],
+	['330066', 'fear'],
+	['330099', 'trust'],
+	['3300CC', 'trust'],
+	['3300FF', 'trust'],
+	['333300', 'disgust'],
+	['333333', 'sadness'],
+	['333366', 'sadness'],
+	['333399', 'trust'],
+	['3333CC', 'trust'],
+	['3333FF', 'trust'],
+	['336600', 'disgust'],
+	['336633', 'disgust'],
+	['336666', 'sadness'],
+	['336699', 'sadness'],
+	['3366CC', 'sadness'],
+	['3366FF', 'joy'],
+	['339900', 'joy'],
+	['339933', 'joy'],
+	['339966', 'joy'],
+	['339999', 'sadness'],
+	['3399CC', 'sadness'],
+	['3399FF', 'sadness'],
+	['33CC00', 'joy'],
+	['33CC33', 'joy'],
+	['33CC66', 'joy'],
+	['33CC99', 'joy'],
+	['33CCCC', 'joy'],
+	['33CCFF', 'joy'],
+	['33FF00', 'anticipation'],
+	['33FF33', 'joy'],
+	['33FF66', 'joy'],
+	['33FF99', 'joy'],
+	['33FFCC', 'joy'],
+	['33FFFF', 'joy'],
+	['660000', 'anger'],
+	['660033', 'anger'],
+	['660066', 'anger'],
+	['660099', 'joy'],
+	['6600CC', 'fear'],
+	['6600FF', 'fear'],
+	['663300', 'anger'],
+	['663333', 'anger'],
+	['663366', 'disgust'],
+	['663399', 'fear'],
+	['6633CC', 'joy'],
+	['6633FF', 'joy'],
+	['666600', 'disgust'],
+	['666633', 'disgust'],
+	['666666', 'sadness'],
+	['666699', 'fear'],
+	['6666CC', 'sadness'],
+	['6666FF', 'joy'],
+	['669900', 'disgust'],
+	['669933', 'disgust'],
+	['669966', 'disgust'],
+	['669999', 'disgust'],
+	['6699CC', 'sadness'],
+	['6699FF', 'joy'],
+	['66CC00', 'joy'],
+	['66CC33', 'joy'],
+	['66CC66', 'joy'],
+	['66CC99', 'joy'],
+	['66CCCC', 'joy'],
+	['66CCFF', 'joy'],
+	['66FF00', 'anticipation'],
+	['66FF33', 'anticipation'],
+	['66FF66', 'anticipation'],
+	['66FF99', 'joy'],
+	['66FFCC', 'joy'],
+	['66FFFF', 'joy'],
+	['990000', 'anger'],
+	['990033', 'anger'],
+	['990066', 'anger'],
+	['990099', 'fear'],
+	['9900CC', 'joy'],
+	['9900FF', 'joy'],
+	['993300', 'anger'],
+	['993333', 'anger'],
+	['993366', 'fear'],
+	['993399', 'joy'],
+	['9933CC', 'fear'],
+	['9933FF', 'joy'],
+	['996600', 'disgust'],
+	['996633', 'disgust'],
+	['996666', 'disgust'],
+	['996699', 'sadness'],
+	['9966CC', 'fear'],
+	['9966FF', 'joy'],
+	['999900', 'disgust'],
+	['999933', 'disgust'],
+	['999966', 'disgust'],
+	['999999', 'sadness'],
+	['9999CC', 'sadness'],
+	['9999FF', 'sadness'],
+	['99CC00', 'disguest'],
+	['99CC33', 'disgust'],
+	['99CC66', 'sadness'],
+	['99CC99', 'sadness'],
+	['99CCCC', 'sadness'],
+	['99CCFF', 'joy'],
+	['99FF00', 'joy'],
+	['99FF33', 'joy'],
+	['99FF66', 'joy'],
+	['99FF99', 'joy'],
+	['99FFCC', 'joy'],
+	['99FFFF', 'joy'],
+	['CC0000', 'anger'],
+	['CC0033', 'anger'],
+	['CC0066', 'sadness'],
+	['CC0099', 'joy'],
+	['CC00CC', 'joy'],
+	['CC00FF', 'joy'],
+	['CC3300', 'anger'],
+	['CC3333', 'anger'],
+	['CC3366', 'joy'],
+	['CC3399', 'joy'],
+	['CC33CC', 'joy'],
+	['CC33FF', 'joy'],
+	['CC6600', 'disgust'],
+	['CC6633', 'disgust'],
+	['CC6666', 'sadness'],
+	['CC6699', 'disgust'],
+	['CC66CC', 'joy'],
+	['CC66FF', 'joy'],
+	['CC9900', 'sadness'],
+	['CC9933', 'sadness'],
+	['CC9966', 'sadness'],
+	['CC9999', 'sadness'],
+	['CC99CC', 'sadness'],
+	['CC99FF', 'joy'],
+	['CCCC00', 'sadness'],
+	['CCCC33', 'sadness'],
+	['CCCC66', 'sadness'],
+	['CCCC99', 'sadness'],
+	['CCCCCC', 'sadness'],
+	['CCCCFF', 'sadness'],
+	['CCFF00', 'surprise'],
+	['CCFF33', 'surprise'],
+	['CCFF66', 'joy'],
+	['CCFF99', 'joy'],
+	['CCFFCC', 'joy'],
+	['CCFFFF', 'joy'],
+	['FF0000', 'surprise'],
+	['FF0033', 'surprise'],
+	['FF0066', 'love'],
+	['FF0099', 'joy'],
+	['FF00CC', 'joy'],
+	['FF00FF', 'joy'],
+	['FF3300', 'surprise'],
+	['FF3333', 'joy'],
+	['FF3366', 'joy'],
+	['FF3399', 'joy'],
+	['FF33CC', 'joy'],
+	['FF33FF', 'joy'],
+	['FF6600', 'anticipation'],
+	['FF6633', 'anticipation'],
+	['FF6666', 'joy'],
+	['FF6699', 'joy'],
+	['FF66CC', 'joy'],
+	['FF66FF', 'joy'],
+	['FF9900', 'anticipation'],
+	['FF9933', 'anticipation'],
+	['FF9966', 'anticipation'],
+	['FF9999', 'joy'],
+	['FF99CC', 'joy'],
+	['FF99FF', 'joy'],
+	['FFCC00', 'anticipation'],
+	['FFCC33', 'anticipation'],
+	['FFCC66', 'joy'],
+	['FFCC99', 'joy'],
+	['FFCCCC', 'joy'],
+	['FFCCFF', 'joy'],
+	['FFFF00', 'surprise'],
+	['FFFF33', 'surprise'],
+	['FFFF66', 'joy'],
+	['FFFF99', 'joy'],
+	['FFFFCC', 'joy'],
+	['FFFFFF', 'joy']]
+};
 
 ntc.init();
 
@@ -679,14 +580,14 @@ ntc.init();
 					var minute = Math.round(minutes);
 					var second = Math.round(100*seconds)/100;
 					var time = minute+second;
-<<<<<<< HEAD
+
 					alert(time);
 				},600);
-				setInterval(function () { //this will be the countdown function maybe
+				/*setInterval(function () { //this will be the countdown function maybe
 
-				}, 1000);
-=======
-				},1000);
+				}, 1000);*/
+
+	},
 				/*setInterval(function () { //this will be the countdown function maybe
 					    var timeleft = document.getElementById('timeleft'),
 					        duration = parseInt( audio.duration ),
@@ -705,54 +606,54 @@ ntc.init();
 					    timeleft.innerHTML = m+":"+s;
 					    
 					}, 1000);*/
->>>>>>> FETCH_HEAD
-				$('#player').on('ended', function() { //this makes the next song come
-					getSongs(emoCombo1);
-				});
-			}
+
+			/*$('#player').on('ended', function() { //this makes the next song come
+				getSongs(emoCombo1);
+			});*/
 		});
-	};
+};
+//};
 
-	function superDuperRoundingMagicMachine(soiledIt){
-		if (soiledIt < 26){
-			soiledIt = 00;
-		}
-		else if (soiledIt > 25 && soiledIt < 77){
-			soiledIt = 51;
-		}
-		else if (soiledIt > 76 && soiledIt < 128){
-			soiledIt = 102;
-		}
-		else if (soiledIt > 127 && soiledIt < 179){
-			soiledIt = 153;
-		}
-		else if (soiledIt > 178 && soiledIt < 230){
-			soiledIt = 204;
-		}
-		else if (soiledIt > 229){
-			soiledIt = 255;
-		}
-		return soiledIt;
+function superDuperRoundingMagicMachine(soiledIt){
+	if (soiledIt < 26){
+		soiledIt = 00;
 	}
-	var r = superDuperRoundingMagicMachine(firstcolorR);
-	var g = superDuperRoundingMagicMachine(firstcolorG);
-	var b = superDuperRoundingMagicMachine(firstcolorB);
+	else if (soiledIt > 25 && soiledIt < 77){
+		soiledIt = 51;
+	}
+	else if (soiledIt > 76 && soiledIt < 128){
+		soiledIt = 102;
+	}
+	else if (soiledIt > 127 && soiledIt < 179){
+		soiledIt = 153;
+	}
+	else if (soiledIt > 178 && soiledIt < 230){
+		soiledIt = 204;
+	}
+	else if (soiledIt > 229){
+		soiledIt = 255;
+	}
+	return soiledIt;
+}
+var r = superDuperRoundingMagicMachine(firstcolorR);
+var g = superDuperRoundingMagicMachine(firstcolorG);
+var b = superDuperRoundingMagicMachine(firstcolorB);
 
-	var r2 = superDuperRoundingMagicMachine(secondcolorR);
-	var g2 = superDuperRoundingMagicMachine(secondcolorG);
-	var b2 = superDuperRoundingMagicMachine(secondcolorB);
+var r2 = superDuperRoundingMagicMachine(secondcolorR);
+var g2 = superDuperRoundingMagicMachine(secondcolorG);
+var b2 = superDuperRoundingMagicMachine(secondcolorB);
 
-	var r3 = superDuperRoundingMagicMachine(thirdcolorR);
-	var g3 = superDuperRoundingMagicMachine(thirdcolorG);
-	var b3 = superDuperRoundingMagicMachine(thirdcolorB);
+var r3 = superDuperRoundingMagicMachine(thirdcolorR);
+var g3 = superDuperRoundingMagicMachine(thirdcolorG);
+var b3 = superDuperRoundingMagicMachine(thirdcolorB);
 
-	var r4 = superDuperRoundingMagicMachine(fourthcolorR);
-	var g4 = superDuperRoundingMagicMachine(fourthcolorG);
-	var b4 = superDuperRoundingMagicMachine(fourthcolorB);
+var r4 = superDuperRoundingMagicMachine(fourthcolorR);
+var g4 = superDuperRoundingMagicMachine(fourthcolorG);
+var b4 = superDuperRoundingMagicMachine(fourthcolorB);
 
-	var r5 = superDuperRoundingMagicMachine(fifthcolorR);
-	var g5 = superDuperRoundingMagicMachine(fifthcolorG);
-	var b5 = superDuperRoundingMagicMachine(fifthcolorB);
+var r5 = superDuperRoundingMagicMachine(fifthcolorR);
+var g5 = superDuperRoundingMagicMachine(fifthcolorG);
+var b5 = superDuperRoundingMagicMachine(fifthcolorB);
 //==============================================================================================
 function componentToHex(c) {
 	var hex = c.toString(16);
@@ -774,8 +675,6 @@ function rgbToHex(r, g, b) {
 	        n_name       = n_match[1]; // This is the text string for the name of the match
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
-
-<<<<<<< HEAD
 	        var colorPalette = 
 	        "<h2>Color Palette</h2>"+
 	        "<h1>"+ moodName +"</h1>"+
@@ -784,9 +683,9 @@ function rgbToHex(r, g, b) {
 	        "</div>";
 
 	        var n_match2  = ntc.name(hexcolor2);
-=======
-	var n_match2  = ntc.name(hexcolor2);
->>>>>>> FETCH_HEAD
+
+	        var n_match2  = ntc.name(hexcolor2);
+
 		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
 		    n_name2       = n_match2[1]; // This is the text string for the name of the match
 		    n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
@@ -876,27 +775,26 @@ function rgbToHex(r, g, b) {
 	//$.get( "php/undertone.php", { themood: mood } )
 	//.done(function( data ) {
 	//alert( "Data Loaded: " + data );
-<<<<<<< HEAD
+
 	getSongs(emoCombo1);
 	$('#stuffhere').html(style);
 	$('#colorPalette').html(colorPalette);
 	$(".swatches:first-child").css("background-color",hexcolor);
 	$(".swatches:nth-child(2)").css("background-color",hexcolor2);
 	$(".swatches:nth-child(3)").css("background-color",hexcolor3);
-=======
-	        getSongs(emoCombo1);
-	        $('#stuffhere').html(style);
-	        $('#colorPalette').html(colorPalette);
-	        $(".swatches:first-child").css("background-color",hexcolor);
-	        $(".swatches:nth-child(2)").css("background-color",hexcolor2);
-	        $(".swatches:nth-child(3)").css("background-color",hexcolor3);
-	        $(".swatches:nth-child(4)").css("background-color",hexcolor4);
-	        $(".swatches:nth-child(5)").css("background-color",hexcolor5);
->>>>>>> FETCH_HEAD
+
+	getSongs(emoCombo1);
+	$('#stuffhere').html(style);
+	$('#colorPalette').html(colorPalette);
+	$(".swatches:first-child").css("background-color",hexcolor);
+	$(".swatches:nth-child(2)").css("background-color",hexcolor2);
+	$(".swatches:nth-child(3)").css("background-color",hexcolor3);
+	$(".swatches:nth-child(4)").css("background-color",hexcolor4);
+	$(".swatches:nth-child(5)").css("background-color",hexcolor5);
 
 	        //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
 			// });
-};
+//};
 
 	    //};//);
 $("#camera").click(function(){
@@ -947,9 +845,5 @@ $("#camera").click(function(){
 
 
 }
-
-
-
-
 
 );
