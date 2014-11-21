@@ -782,7 +782,7 @@ $("#camera").click(function(){
 	// timeupdate event listener
 	music.addEventListener("timeupdate", timeUpdate, false);
 
-	$('#pButton').on("click", function(){
+	function playPause(){
 		//Play and Pause
 			// start music
 			if (music.paused) {
@@ -796,6 +796,10 @@ $("#camera").click(function(){
 				pButton.className = "";
 				pButton.className = "play";
 			}
+	}
+
+	$('#pButton').on("click", function(){
+		playPause();
 	});
 
 	//Makes timeline clickable
