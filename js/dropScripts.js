@@ -34,7 +34,7 @@ $(function(){
 		$(this).children('p').html('drag image here');
 	});
 
-	$('#upload-image').on('click', function() {
+	$('.upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
 	$('#click-image-upload').change(function(files){
