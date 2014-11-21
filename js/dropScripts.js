@@ -37,6 +37,7 @@ $(function(){
 		$(this).children('p').html('drag image here');
 	});
 
+<<<<<<< HEAD
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
@@ -54,6 +55,37 @@ $(function(){
             reader.readAsDataURL(this.files[0]);
 	    }
 	    dropbox.filedrop({
+=======
+	$('#click-image-upload').change(function(Files){
+	    alert("in");
+	    var theImg;// = new Image;
+	    var file = this.files[0];
+	    createImage(file);
+	    $('#stuffhere').show();
+	    $('#colorPalette').show();
+
+        var isDragging = false;
+        $(document)
+        .mousedown(function() {
+        	$(window).mousemove(function() {
+        		isDragging = true;
+        		$(window).unbind("mousemove");
+        		$('.imgOption').hide();
+        	});
+        })
+        .mouseup(function() {
+        	var wasDragging = isDragging;
+        	isDragging = false;
+        	$(window).unbind("mousemove");
+		    if (!wasDragging) { //was clicking
+		    }
+		    if(wasDragging) {  //drag is over
+		    	$('.imgOption').show();
+		    }
+		});
+
+        dropbox.filedrop({
+>>>>>>> FETCH_HEAD
 	    	// The name of the $_FILES entry:
 	    	paramname:'pic',
 	    	
