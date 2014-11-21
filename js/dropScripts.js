@@ -555,7 +555,7 @@ ntc.init();
 				var title = data['title'];
 				var artist = data['artist'];
 				var track = data['track'];
-				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player' autoplay controls><source src='"+track+"' type='audio/mpeg'></audio>";
+				var style = "<h3>"+title+"</h3><p>"+artist+"</p><audio id='player'><source src="+track+"></audio><div id='audioplayer'><div class='mood-title'><div class='playlist flex direction-column'><div class='playlist-based'>Playlist Based On</div><div class='playlist-emotion'>The Bae</div></div></div><div class='player-main'><div class='player-contents flex direction-row align-center'><button id='pButton' class='play' onclick='play()'></button><div class='player-song'><p class='song-name'>Sad Machine</p><p class='artist-name'>Porter Robinson</p><p class='album-name'>Worlds</p></div><div class='timestamp'>5:58</div></div><div id='timeline'><div id='playhead'></div></div></div></div>";
 				$('#stuffhere').html(style);
 				var length = document.getElementById("player");
 				setTimeout(function(){   //this gets the length of the song playing
