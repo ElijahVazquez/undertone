@@ -782,6 +782,22 @@ $("#camera").click(function(){
 	// timeupdate event listener
 	music.addEventListener("timeupdate", timeUpdate, false);
 
+	$('#pButton').on("click", function(){
+		//Play and Pause
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+	});
+
 	//Makes timeline clickable
 	timeline.addEventListener("click", function (event) {
 		moveplayhead(event);
@@ -844,22 +860,6 @@ $("#camera").click(function(){
 		var playPercent = timelineWidth * (music.currentTime / duration);
 		playhead.style.marginLeft = playPercent + "px";
 		if (music.currentTime == duration) {
-			pButton.className = "";
-			pButton.className = "play";
-		}
-	}
-
-	//Play and Pause
-	function play() {
-		// start music
-		if (music.paused) {
-			music.play();
-			// remove play, add pause
-			pButton.className = "";
-			pButton.className = "pause";
-		} else { // pause music
-			music.pause();
-			// remove pause, add play
 			pButton.className = "";
 			pButton.className = "play";
 		}

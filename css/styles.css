@@ -405,6 +405,7 @@ footer{
     background-repeat: no-repeat;
     background-position: center;
     outline:none;
+    cursor:pointer;
 }
 
 .play{background: url('../img/play_button.png') ;}
