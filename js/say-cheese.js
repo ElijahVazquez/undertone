@@ -123,6 +123,7 @@ var SayCheese = (function() {
 
     snapshot.width  = width;
     snapshot.height = height;
+    $(snapshot).attr('id','hideSnap');
 
     ctx.drawImage(this.video, 0, 0, width, height);
 

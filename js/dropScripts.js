@@ -3,50 +3,55 @@ $(function(){
 	$('#stuffhere').hide();
 	$("#colorPalette").hide();
 	$("#hideMe").hide();
+	$('#capture').hide();
 	var dropbox = $('#dropbox'),
 	message = $('.message', dropbox),
 	mainBody = $('#lifeForce'),
 	sourceImage;
+	var template = '<div class="preview">'+
+	'<h2>Your Image</h2>'+
+	'<span class="imageHolder">'+
+	'<img class="uploadedImg" />'+
+	'</span>'+
+	'</div>'; 
 
 	$('#upload-image').on('click', function() {
 		$('#click-image-upload').click();
 	});
-	
-	$('#click-image-upload').change(function(){
-	    alert("in");
-	    var theImg;
-	    //console.log(this.files[0]);
-	    if (this.files && this.files[0]) {
-	        var reader = new FileReader();
-	        
-	        reader.onload = function (e) {
-	            theImg = e.target.result;
-	            dropbox.append("<img src="+theImg+" />");
-            }        
-            reader.readAsDataURL(this.files[0]);
-	    }
 
-	var isDragging = false;
-	$(document)
-		.mousedown(function() {
-		    $(window).mousemove(function() {
-		        isDragging = true;
-		        $(window).unbind("mousemove");
-		        $('.imgOption').hide();
-		    });
-		})
-		.mouseup(function() {
-		    var wasDragging = isDragging;
-		    isDragging = false;
-		    $(window).unbind("mousemove");
+
+	$('#click-image-upload').change(function(Files){
+	    alert("in");
+	    var theImg;// = new Image;
+	    var file = this.files[0];
+	    createImage(file);
+	    $('#stuffhere').show();
+	    $('#colorPalette').show();
+
+        var isDragging = false;
+        $(document)
+        .mousedown(function() {
+        	$(window).mousemove(function() {
+        		isDragging = true;
+        		$(window).unbind("mousemove");
+        		$('.imgOption').hide();
+        	});
+        })
+        .mouseup(function() {
+        	var wasDragging = isDragging;
+        	isDragging = false;
+        	$(window).unbind("mousemove");
 		    if (!wasDragging) { //was clicking
 		    }
 		    if(wasDragging) {  //drag is over
 		    	$('.imgOption').show();
 		    }
-	});
+		});
 
-	    dropbox.filedrop({
+
+
+
+        dropbox.filedrop({
 	    	// The name of the $_FILES entry:
 	    	paramname:'pic',
 	    	
@@ -91,7 +96,7 @@ $(function(){
 	    		createImage(file);
 	    		//$("header").hide();
 	    		//$("#mainBody").hide();
-	    		$("#hideMe").show();
+	    		//$("#hideMe").show();
 	    		$('#stuffhere').show();
 	    		$('#colorPalette').show();
 
@@ -102,9 +107,9 @@ $(function(){
 	    	//}
 
 	    });
-	});
+});
 
-	dropbox.filedrop({
+dropbox.filedrop({
 		// The name of the $_FILES entry:
 		paramname:'pic',
 		
@@ -160,12 +165,7 @@ $(function(){
 
 	});
 
-var template = '<div class="preview">'+
-'<h2>Your Image</h2>'+
-'<span class="imageHolder">'+
-'<img class="uploadedImg" />'+
-'</span>'+
-'</div>'; 
+
 
 function createImage(file){
 
@@ -214,8 +214,10 @@ function createImage(file){
 		// with the file, using jQuery's $.data():
 		
 		$.data(file,preview);
+		//alert(file);
 
-	};
+};
+
 	function showMessage(msg){
 		message.html(msg);
 	}
@@ -230,22 +232,22 @@ function createImage(file){
 		}
 	});
 	//$(document).ready(function(){
-	    //$('#capture').hide();
-	    function colorToMood(){
 
-	    	if(paletteArray != null){
-	    		firstcolorR = paletteArray[0][0];
-	    		firstcolorG = paletteArray[0][1];
-	    		firstcolorB = paletteArray[0][2];
+		function colorToMood(){
 
-	    		secondcolorR = paletteArray[1][0];
-	    		secondcolorG = paletteArray[1][1];
-	    		secondcolorB = paletteArray[1][2];
+			if(paletteArray != null){
+				firstcolorR = paletteArray[0][0];
+				firstcolorG = paletteArray[0][1];
+				firstcolorB = paletteArray[0][2];
 
-	    		thirdcolorR = paletteArray[2][0];
-	    		thirdcolorG = paletteArray[2][1];
-	    		thirdcolorB = paletteArray[2][2];
-	    	}
+				secondcolorR = paletteArray[1][0];
+				secondcolorG = paletteArray[1][1];
+				secondcolorB = paletteArray[1][2];
+
+				thirdcolorR = paletteArray[2][0];
+				thirdcolorG = paletteArray[2][1];
+				thirdcolorB = paletteArray[2][2];
+			}
 	        /*for(i=0; i<paletteArray.length; i++){
 	           var ? = paletteArray[i]
 	       }*/
@@ -600,7 +602,7 @@ ntc.init();
 				},600);
 				setInterval(function () { //this will be the countdown function maybe
 
-					}, 1000);
+				}, 1000);
 				$('#player').on('ended', function() { //this makes the next song come
 					getSongs(mood);
 				});
@@ -641,14 +643,14 @@ ntc.init();
 	var g3 = superDuperRoundingMagicMachine(thirdcolorG);
 	var b3 = superDuperRoundingMagicMachine(thirdcolorB);
 //==============================================================================================
-	function componentToHex(c) {
-		var hex = c.toString(16);
-		return hex.length == 1 ? "0" + hex : hex;
-	}
+function componentToHex(c) {
+	var hex = c.toString(16);
+	return hex.length == 1 ? "0" + hex : hex;
+}
 
-	function rgbToHex(r, g, b) {
-		return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-	}   
+function rgbToHex(r, g, b) {
+	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}   
 	    //alert(r + "  " + g + " " + b);
 	    var hexcolor = rgbToHex(r,g,b);
 	    var hexcolor2 = rgbToHex(r2,g2,b2);
@@ -660,49 +662,14 @@ ntc.init();
 	        n_exactmatch = n_match[2]; // True if exact color match, False if close-match
 
 
-	        /*var mood;
-	        var moodName;
+	        var colorPalette = 
+	        "<h2>Color Palette</h2>"+
+	        "<h1>"+ moodName +"</h1>"+
+	        "<div id='colorsInHere'>"+
+	        "<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
+	        "</div>";
 
-	  if (n_name == 'red'){
-	    mood = '42958';//Aggressive';
-	    moodName = 'Aggressive';
-	} else if (n_name == 'green'){
-	    mood = '65332';//Lively';
-	    moodName = 'lively';
-	} else if (n_name == 'blue'){
-	    mood = '65326'; //Cool';
-	    moodName = 'Cool';
-	} else if (n_name == 'yellow'){
-	    mood = '42960';//Excited';
-	    moodName = 'Excited';
-	} else if (n_name == 'purple'){
-	    mood = '42954'; //Sophisticated
-	    moodName = 'Sophisticated';
-	} else if (n_name == 'orange'){
-	    mood = '42961';//Energizing';
-	    moodName = 'Energizing';
-	} else if (n_name == 'pink'){
-	    mood = '65323';//Romantic';
-	    moodName = 'Romantic';
-	} else if (n_name == 'grey'){
-	    mood = '42949';//Melancholy';
-	    moodName = 'Melancholy';
-	} else if (n_name == 'black'){
-	    mood = '65327';//Gritty';
-	    moodName = 'Gritty';
-	} else if (n_name == 'white'){
-	    mood = '65332'; //Peaceful
-	    moodName = 'Peaceful';
-	} else{ alert('I tried to make ramen in the coffee pot and broke everything..') }
-	*/
-	var colorPalette = 
-	"<h2>Color Palette</h2>"+
-	"<h1>"+ moodName +"</h1>"+
-	"<div id='colorsInHere'>"+
-	"<div class='swatches'></div><div class='swatches'></div><div class='swatches'></div><div class='swatches'></div>"+
-	"</div>";
-
-	var n_match2  = ntc.name(hexcolor2);
+	        var n_match2  = ntc.name(hexcolor2);
 		    n_rgb2        = n_match2[0]; // This is the RGB value of the closest matching color
 		    n_name2       = n_match2[1]; // This is the text string for the name of the match
 		    n_exactmatch2 = n_match2[2]; // True if exact color match, False if close-match
@@ -792,20 +759,21 @@ ntc.init();
 	//$.get( "php/undertone.php", { themood: mood } )
 	//.done(function( data ) {
 	//alert( "Data Loaded: " + data );
-	        getSongs(emoCombo1);
-	        $('#stuffhere').html(style);
-	        $('#colorPalette').html(colorPalette);
-	        $(".swatches:first-child").css("background-color",hexcolor);
-	        $(".swatches:nth-child(2)").css("background-color",hexcolor2);
-	        $(".swatches:nth-child(3)").css("background-color",hexcolor3);
+	getSongs(emoCombo1);
+	$('#stuffhere').html(style);
+	$('#colorPalette').html(colorPalette);
+	$(".swatches:first-child").css("background-color",hexcolor);
+	$(".swatches:nth-child(2)").css("background-color",hexcolor2);
+	$(".swatches:nth-child(3)").css("background-color",hexcolor3);
 
 	        //$("body").css("background-color",hexcolor);     CHANGES THE BACKGROUND TO PRIMARY COLOR
 			// });
 };
 
 	    //};//);
-$("#openWebcam").click(function(){
-	var sayCheese = new SayCheese('#container-element', { snapshots: true });
+$("#camera").click(function(){
+	var sayCheese = new SayCheese('#webcam', { snapshots: true });
+	$('.imgOption').hide();
 	$("#capture").delay(800).fadeIn(1);
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
@@ -821,19 +789,31 @@ $("#openWebcam").click(function(){
 
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
-
+		var preview = $(template);
 		$(img).on('load', function() {
 			$('#say-cheese-snapshots').prepend(img);
+			var colorThief = new ColorThief();
+			paletteArray = colorThief.getPalette(img, 4);
+			colorToMood();
+			$('#stuffhere').show();
+			$('#colorPalette').show();
+			$('.imgOption').show();
+			$("#webcam").hide();
+
 		});
 		img.src = snapshot.toDataURL('image/png');
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
+		//$.data(File,preview);
+		//alert(File);
+		
 	});
 
 	sayCheese.start();
-	$("#capture").click(function(){
+	$("#capture").click(function(img){
 		sayCheese.takeSnapshot();
+		
 	});
 });
 
