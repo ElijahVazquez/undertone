@@ -40,6 +40,7 @@ $(function(){
 	$('#click-image-upload').change(function(files){
 		$('.loader').fadeIn().delay(1000);
 	    var file = this.files[0];
+	    //alert(file);
 	    createImage(file);
 	    $('#stuffhere').show();
 	    $('#colorPalette').show();
@@ -729,6 +730,25 @@ ntc.init();
 			// });
 };
 
+function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type:mimeString});
+}
 	    //};//);
 $("#camera").click(function(){
 	var sayCheese = new SayCheese('#webcam-inner', { snapshots: true });
@@ -737,25 +757,21 @@ $("#camera").click(function(){
 	$("#drop-zone").fadeOut(800);
 	$("#openWebcam").fadeOut(800);
 	sayCheese.on('start', function() {
-	     // do something when started	
-	         
+	     // do something when started	  
 	 });
 	sayCheese.on('snapshot', function(snapshot) {
 		var img = document.createElement('img');
 		var preview = $(template);
 		$(img).on('load', function() {
-			var colorThief = new ColorThief();
-			paletteArray = colorThief.getPalette(img, 5);
-			colorToMood();
+			var blob = dataURItoBlob(data);
+			createImage(blob);
 			$('#stuffhere').show();
 			$('#colorPalette').show();
 			$('.imgOption').show();
 			$("#webcam").hide();
 		});
 		img.src = snapshot.toDataURL('image/png');
-		$( "#lifeForce" ).append('<div class="preview"><h2>Your Image</h2><span class="imageHolder">');
-		$(".imageHolder").append(img);
-		$(".imageHolder").append('</span></div>');
+		var data = img.src;
 		sayCheese.stop();
 		$("#container-element").hide();
 		$("#capture").hide();
